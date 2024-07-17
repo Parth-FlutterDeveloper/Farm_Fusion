@@ -2,6 +2,7 @@
 import 'package:farm_booking_app/Routes/routes_name.dart';
 import 'package:farm_booking_app/Screens/home_screen.dart';
 import 'package:farm_booking_app/Screens/splash_screen.dart';
+import 'package:farm_booking_app/Widgets/Navbar%20Widget/navbar_widget.dart';
 import 'package:get/get.dart';
 
 class AppRoutes{
@@ -16,8 +17,8 @@ class AppRoutes{
     ),
 
     GetPage(
-      name: RoutesName.homeScreen,
-      page: () => HomeScreen(),
+      name: RoutesName.navbarWidget,
+      page: () => NavbarWidget(),
       transitionDuration: Duration(milliseconds: 250),
       transition: Transition.rightToLeftWithFade,
     )

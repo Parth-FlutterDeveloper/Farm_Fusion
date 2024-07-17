@@ -12,15 +12,20 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: Text("Farm Fusion",style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
-            fontFamily: "LocalFont",
-            color: Colors.white,
-            letterSpacing: 1
-        ),),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 50),
+          Center(
+            child: Text("Farm Fusion",style: TextStyle(
+              fontSize: 33,
+              fontWeight: FontWeight.bold,
+              fontFamily: "LocalFont",
+              color: Colors.green
+            ),),
+          ),
+        ],
       ),
     );
   }
