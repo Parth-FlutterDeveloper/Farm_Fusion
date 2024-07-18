@@ -15,7 +15,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
          children: [
            SizedBox(height: 50),
            Center(
-             child: Text("User Profile",style: TextStyle(
+             child: Text("Profile",style: TextStyle(
                  fontSize: 33,
                  fontWeight: FontWeight.bold,
                  fontFamily: "LocalFont",
