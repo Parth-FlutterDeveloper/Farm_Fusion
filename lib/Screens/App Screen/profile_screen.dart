@@ -19,6 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                  fontSize: 33,
                  fontWeight: FontWeight.bold,
                  fontFamily: "LocalFont",
+                 letterSpacing: 1.5,
                  color: Colors.green
              ),),
            ),
