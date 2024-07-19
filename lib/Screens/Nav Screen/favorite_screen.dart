@@ -16,7 +16,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         centerTitle: true,
         backgroundColor: Colors.green.shade300,
         title: Text("Favorites",style: TextStyle(
-          fontSize: 35,
+          fontSize: 30,
           fontWeight: FontWeight.bold,
           fontFamily: "LocalFont",
           color: Colors.black,

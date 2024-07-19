@@ -16,7 +16,7 @@ class _BookedScreenState extends State<BookedScreen> {
         centerTitle: true,
         backgroundColor: Colors.green.shade300,
         title: Text("Booked Farm",style: TextStyle(
-            fontSize: 35,
+            fontSize: 30,
             fontWeight: FontWeight.bold,
             fontFamily: "LocalFont",
             color: Colors.black,

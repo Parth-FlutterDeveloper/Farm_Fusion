@@ -1,7 +1,7 @@
-import 'package:farm_booking_app/Screens/App%20Screen/booked_screen.dart';
-import 'package:farm_booking_app/Screens/App%20Screen/favorite_screen.dart';
-import 'package:farm_booking_app/Screens/App%20Screen/home_screen.dart';
-import 'package:farm_booking_app/Screens/App%20Screen/profile_screen.dart';
+import 'package:farm_booking_app/Screens/Nav%20Screen/booked_screen.dart';
+import 'package:farm_booking_app/Screens/Nav%20Screen/favorite_screen.dart';
+import 'package:farm_booking_app/Screens/Nav%20Screen/home_screen.dart';
+import 'package:farm_booking_app/Screens/Nav%20Screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class NavbarWidget extends StatefulWidget {
@@ -34,7 +34,7 @@ class _NavbarWidgetState extends State<NavbarWidget> {
           selectedItemColor: Colors.green,
           selectedLabelStyle: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 16,
+            fontSize: 17,
             fontFamily: "LocalFont"
           ),
           unselectedLabelStyle: TextStyle(
@@ -48,7 +48,7 @@ class _NavbarWidgetState extends State<NavbarWidget> {
             });
           },
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home",),
             BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favorits"),
             BottomNavigationBarItem(icon: Icon(Icons.book), label: "Booked"),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
