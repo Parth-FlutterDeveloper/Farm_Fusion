@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class FavoriteScreen extends StatefulWidget {
-  const FavoriteScreen({super.key});
+class FavouriteScreen extends StatefulWidget {
+  const FavouriteScreen({super.key});
 
   @override
-  State<FavoriteScreen> createState() => _FavoriteScreenState();
+  State<FavouriteScreen> createState() => _FavouriteScreenState();
 }
 
-class _FavoriteScreenState extends State<FavoriteScreen> {
+class _FavouriteScreenState extends State<FavouriteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.green.shade300,
-        title: Text("Favorites",style: TextStyle(
+        title: Text("Favourites",style: TextStyle(
           fontSize: 30,
           fontWeight: FontWeight.bold,
           fontFamily: "LocalFont",
@@ -43,9 +43,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 itemBuilder: (context, index) {
                   return Container(
                     margin: EdgeInsets.only(left: 20,right: 20,bottom: 20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(11),
+                      color: Colors.black26,
+                    ),
                     width: Get.width,
-                    color: Colors.black26,
-                    height: Get.height / 2.5
+                    height: Get.height / 3.2
                   );
                 }
             )

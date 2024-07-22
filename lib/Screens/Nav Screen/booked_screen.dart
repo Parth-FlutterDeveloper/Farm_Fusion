@@ -45,7 +45,7 @@ class _BookedScreenState extends State<BookedScreen> {
                       margin: EdgeInsets.only(left: 20,right: 20,bottom: 20),
                       width: Get.width,
                       color: Colors.black26,
-                      height: Get.height / 2.5
+                      height: Get.height / 3.0
                   );
                 }
             )

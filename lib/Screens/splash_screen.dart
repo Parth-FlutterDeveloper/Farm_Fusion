@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.green.shade200,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
             alignment: Alignment.bottomCenter,
             child: Text("Find peace between nature.\nBook your farmhouse today.",
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.green.shade900,
               fontFamily: 'SplashFont',
               fontSize: 16,
               fontWeight: FontWeight.bold
