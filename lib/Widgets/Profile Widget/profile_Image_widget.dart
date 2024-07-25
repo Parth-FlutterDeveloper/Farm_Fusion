@@ -22,7 +22,11 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
             width: Get.width / 3,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.black26
+                color: Colors.black26,
+                image: DecorationImage(
+                  image: AssetImage("assets/images/splashImage.jpeg"),
+                  fit: BoxFit.cover
+                )
             ),
           ),
         ),
