@@ -36,21 +36,26 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
             //   ),),
             // ),
             SizedBox(height: 20),
-            ListView.builder(
+            ListView.separated(
                 itemCount: 5,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.only(left: 20,right: 20,bottom: 20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(11),
-                      color: Colors.black26,
+                  return InkWell(
+                    onTap: () {
+                      print("sddddddddddddd");
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(left: 20,right: 20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(11),
+                        color: Colors.black26,
+                      ),
+                      width: Get.width,
+                      height: Get.height / 3.2
                     ),
-                    width: Get.width,
-                    height: Get.height / 3.2
                   );
-                }
+                }, separatorBuilder: (BuildContext context, int index) => SizedBox(height: 20),
             )
           ],
         ),

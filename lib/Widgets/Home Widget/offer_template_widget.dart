@@ -17,7 +17,7 @@ class _OfferTemplateWidgetState extends State<OfferTemplateWidget> {
         height: Get.height / 4.2,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(11),
-            color: Colors.black26
+            color: Colors.white
         ),
         child: AnotherCarousel(
           images: [

@@ -36,18 +36,23 @@ class _BookedScreenState extends State<BookedScreen> {
             //   ),),
             // ),
             SizedBox(height: 20),
-            ListView.builder(
+            ListView.separated(
                 itemCount: 5,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return Container(
-                      margin: EdgeInsets.only(left: 20,right: 20,bottom: 20),
-                      width: Get.width,
-                      color: Colors.black26,
-                      height: Get.height / 3.0
+                  return InkWell(
+                    onTap: () {
+                      print("sddddddddddddd");
+                    },
+                    child: Container(
+                        margin: EdgeInsets.only(left: 20,right: 20),
+                        width: Get.width,
+                        color: Colors.black26,
+                        height: Get.height / 3.0
+                    ),
                   );
-                }
+                }, separatorBuilder: (BuildContext context, int index) => SizedBox(height: 20),
             )
           ],
         ),

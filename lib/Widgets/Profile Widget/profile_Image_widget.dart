@@ -13,11 +13,17 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          height: Get.height / 7,
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.black26
+        InkWell(
+          onTap: () {
+            print("sddddddddddddd");
+          },
+          child: Container(
+            height: Get.height / 7,
+            width: Get.width / 3,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.black26
+            ),
           ),
         ),
         SizedBox(height: 20),

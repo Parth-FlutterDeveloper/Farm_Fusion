@@ -35,29 +35,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
            //       color: Colors.green
            //   ),),
            // ),
-           SizedBox(height: 75),
+           SizedBox(height: 90),
            ProfileImageWidget(),
+           SizedBox(height: 25),
 
-           SizedBox(height: 20),
            ProfileOptionWidget(
              text: "Favourite",
              color: Colors.green.shade100,
              icon: Icon(Icons.favorite),
+             onTap: () {
+               print("sddddddddddddd");
+             },
            ),
+           SizedBox(height: 25),
            ProfileOptionWidget(
              text: "Booked Farm",
              color: Colors.green.shade100,
              icon: Icon(Icons.book),
+             onTap: () {
+               print("sddddddddddddd");
+             },
            ),
+           SizedBox(height: 25),
            ProfileOptionWidget(
              text: "Setting",
              color: Colors.green.shade100,
              icon: Icon(Icons.settings),
+             onTap: () {
+               print("sddddddddddddd");
+             },
            ),
+           SizedBox(height: 25),
            ProfileOptionWidget(
              text: "Logout",
              color: Colors.red.shade100,
              icon: Icon(Icons.logout),
+             onTap: () {
+               print("sddddddddddddd");
+             },
            ),
          ],
        ),
