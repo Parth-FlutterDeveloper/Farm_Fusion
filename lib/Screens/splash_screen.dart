@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
 
-    Timer(Duration(seconds: 4), (){
+    Timer(Duration(seconds: 3), (){
       Get.offNamed(RoutesName.navbarWidget.toString());
     });
   }

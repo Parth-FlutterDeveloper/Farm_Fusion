@@ -1,3 +1,4 @@
+import 'package:another_carousel_pro/another_carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,27 +13,26 @@ class _OfferTemplateWidgetState extends State<OfferTemplateWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.height / 4.2,
-      width: Get.width,
-      margin: EdgeInsets.all(16),
-      child: ListView.builder(
-          itemCount: 4,
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index){
-            return Card(
-                surfaceTintColor: Colors.white,
-                child: Container(
-                  width: Get.width / 1.22,
-                  decoration: BoxDecoration(
-                    color: Colors.black26,
-                    borderRadius: BorderRadius.circular(11)
-                  ),
-                  // child: Center(child: Text('Offers')),
-                )
-            );
-          }
-      ),
+        margin: EdgeInsets.all(20),
+        height: Get.height / 4.2,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(11),
+            color: Colors.black26
+        ),
+        child: AnotherCarousel(
+          images: [
+            AssetImage("assets/images/splashImage.jpeg"),
+            AssetImage("assets/images/splashImage.jpeg"),
+            AssetImage("assets/images/splashImage.jpeg"),
+          ],
+          dotSize: 4.5,
+          indicatorBgPadding: 8,
+          borderRadius: true,
+          dotBgColor: Colors.transparent,
+          autoplay: true,
+          boxFit: BoxFit.cover,
+
+        )
     );
   }
 }

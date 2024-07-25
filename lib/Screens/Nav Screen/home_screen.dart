@@ -30,7 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),),
             ),
             SizedBox(height: 10),
+
             OfferTemplateWidget(),
+
             Container(
               height: 57,
               width: Get.width,
@@ -43,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // child: Text('Search'),
               ),
             ),
+            SizedBox(height: 10),
             ListView.builder(
                 itemCount: 2,
                 shrinkWrap: true,
@@ -51,13 +54,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Container(
                       margin: EdgeInsets.only(left: 20,right: 20,bottom: 20),
                       width: Get.width,
-                      color: Colors.black26,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(11),
+                        color: Colors.black26,
+                      ),
                       height: Get.height / 2.5,
                       // child: Center(child: Text('List of Farm')),
                   );
                 }
             ),
+
             OfferTemplateWidget(),
+
             Container(
               margin: EdgeInsets.all(20),
               height: Get.height / 4.2,

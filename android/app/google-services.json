@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "300780731075",
-    "project_id": "farmbooking-b3e33",
-    "storage_bucket": "farmbooking-b3e33.appspot.com"
+    "project_number": "73274011338",
+    "project_id": "farmfusion-936b6",
+    "storage_bucket": "farmfusion-936b6.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:300780731075:android:29b629bef9ff5f3c1f4076",
+        "mobilesdk_app_id": "1:73274011338:android:570e1014c75fbf18fb8e33",
         "android_client_info": {
           "package_name": "com.example.farm_booking_app"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAaLecXFj7_PGMZCVehdy6iSaLc7U0wIb8"
+          "current_key": "AIzaSyA6oLQnfmy5hGrJn7YC-Ph4RnIZB7mq1S0"
         }
       ],
       "services": {

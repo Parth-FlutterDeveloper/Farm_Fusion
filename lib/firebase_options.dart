@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAaLecXFj7_PGMZCVehdy6iSaLc7U0wIb8',
-    appId: '1:300780731075:android:29b629bef9ff5f3c1f4076',
-    messagingSenderId: '300780731075',
-    projectId: 'farmbooking-b3e33',
-    storageBucket: 'farmbooking-b3e33.appspot.com',
+    apiKey: 'AIzaSyA6oLQnfmy5hGrJn7YC-Ph4RnIZB7mq1S0',
+    appId: '1:73274011338:android:570e1014c75fbf18fb8e33',
+    messagingSenderId: '73274011338',
+    projectId: 'farmfusion-936b6',
+    storageBucket: 'farmfusion-936b6.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAOChE_uKsi4CU-kwWSKC8nqikCBw5lkIQ',
-    appId: '1:300780731075:ios:2b461b99ef0753cd1f4076',
-    messagingSenderId: '300780731075',
-    projectId: 'farmbooking-b3e33',
-    storageBucket: 'farmbooking-b3e33.appspot.com',
+    apiKey: 'AIzaSyC9r3ALh_7Uc1dbQjmkXreyGW3H9zNivP0',
+    appId: '1:73274011338:ios:881f09fff836c851fb8e33',
+    messagingSenderId: '73274011338',
+    projectId: 'farmfusion-936b6',
+    storageBucket: 'farmfusion-936b6.appspot.com',
     iosBundleId: 'com.example.farmBookingApp',
   );
+
 }
