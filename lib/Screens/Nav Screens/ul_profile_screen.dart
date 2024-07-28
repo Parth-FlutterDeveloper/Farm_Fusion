@@ -91,7 +91,13 @@ class _ULProfileScreenState extends State<ULProfileScreen> {
                   backColor: Colors.green.shade200,
                   text: "Register",
                   onTap: () {
-                    print("sddddddddddddd");
+                    load = true;
+                    Get.toNamed(RoutesName.registerScreen.toString())!
+                        .then((value) {
+                      setState(() {
+                        load = false;
+                      });
+                    });
                   }
               ),
 

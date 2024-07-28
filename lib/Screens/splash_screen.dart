@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:farm_booking_app/Routes/routes_name.dart';
-import 'package:farm_booking_app/Widgets/Splash%20Widgets/app_name_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Column(
             children: [
-              SizedBox(height: 180),
+              SizedBox(height: 190),
               Container(
                 height: 200,
                 decoration: BoxDecoration(
@@ -52,7 +51,29 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
               SizedBox(height: 27),
-              AppNameWidget(),
+              Container(
+                  padding: EdgeInsets.only(top: 5),
+                  width: 240,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 8,
+                            spreadRadius: 3
+                        )
+                      ]
+                  ),
+                  child: Center(
+                    child: Text("Farm Fusion",style: TextStyle(
+                        fontSize: 29,
+                        color: Colors.green,
+                        fontFamily: 'SplashFont',
+                        fontWeight: FontWeight.bold
+                    ),),
+                  )
+              ),
             ],
           ),
 
@@ -64,7 +85,7 @@ class _SplashScreenState extends State<SplashScreen> {
             style: TextStyle(
               color: Colors.green.shade900,
               fontFamily: 'SplashFont',
-              fontSize: 16,
+              fontSize: 16.5,
               fontWeight: FontWeight.bold
             ),),
           ),

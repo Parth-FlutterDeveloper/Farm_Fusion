@@ -12,29 +12,29 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool load = false;
+  bool loading = false;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   var _isLoading = false.obs;
 
-  Future<void> _login() async {
-    if (_formKey.currentState!.validate()) {
-      _isLoading.value = true;
-
-      // try {
-      //   await FirebaseAuth.instance.signInWithEmailAndPassword(
-      //     email: _emailController.text,
-      //     password: _passwordController.text,
-      //   );
-      //   Get.offAllNamed(RoutesName.navbarWidget.toString());
-      // } on FirebaseAuthException catch (e) {
-      //   Get.snackbar('LOGIN FAILED!', 'Enter valid email and password',backgroundColor: Colors.white,colorText: Colors.red.shade500);
-      // } finally {
-      //   _isLoading.value = false;
-      // }
-    }
-  }
+  // Future<void> _login() async {
+  //   if (_formKey.currentState!.validate()) {
+  //     _isLoading.value = true;
+  //
+  //     try {
+  //       await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //         email: _emailController.text,
+  //         password: _passwordController.text,
+  //       );
+  //       Get.offAllNamed(RoutesName.navbarWidget.toString());
+  //     } on FirebaseAuthException catch (e) {
+  //       Get.snackbar('LOGIN FAILED!', 'Enter valid email and password',backgroundColor: Colors.white,colorText: Colors.red.shade500);
+  //     } finally {
+  //       _isLoading.value = false;
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +43,14 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(25.0),
+            padding: const EdgeInsets.all(20.0),
             child: Card(
               color: Colors.white,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
+                borderRadius: BorderRadius.circular(21.0),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.only(left: 11,right: 11,top: 25,bottom: 10),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -125,6 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ButtonWidget(
                         text: "Log In",
                         width: 2,
+                        loading: loading,
                         txtColor: Colors.white,
                         backColor: Colors.green.shade400,
                         onTap: () {
@@ -132,7 +133,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                           }
                         },
-                        loading: load
                       ),
 
                       SizedBox(height: 5),
@@ -147,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),),
                           TextButton(
                             onPressed: () {
-                              // Get.toNamed(RoutesName.registrationScreen.toString());
+                              Get.offNamed(RoutesName.registerScreen.toString());
                             },
                             child: Text('Register Here',style: TextStyle(
                                 fontFamily: "LocalFont",
