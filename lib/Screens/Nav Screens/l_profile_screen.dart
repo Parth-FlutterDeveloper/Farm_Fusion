@@ -1,3 +1,6 @@
+
+// Profile Screen for Logged in Users.
+
 import 'package:farm_booking_app/Widgets/Profile%20Widget/profile_Image_widget.dart';
 import 'package:farm_booking_app/Widgets/Profile%20Widget/profile_option_widget.dart';
 import 'package:flutter/material.dart';
@@ -26,18 +29,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
        body: Column(
          children:  [
-           // Center(
-           //   child: Text("Profile",style: TextStyle(
-           //       fontSize: 33,
-           //       fontWeight: FontWeight.bold,
-           //       fontFamily: "LocalFont",
-           //       letterSpacing: 1.5,
-           //       color: Colors.green
-           //   ),),
-           // ),
-           SizedBox(height: 90),
+           SizedBox(height: 80),
            ProfileImageWidget(),
-           SizedBox(height: 25),
+           SizedBox(height: 30),
 
            ProfileOptionWidget(
              text: "Favourite",
@@ -47,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                print("sddddddddddddd");
              },
            ),
-           SizedBox(height: 25),
+           SizedBox(height: 30),
            ProfileOptionWidget(
              text: "Booked Farm",
              color: Colors.green.shade100,
@@ -56,7 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                print("sddddddddddddd");
              },
            ),
-           SizedBox(height: 25),
+           SizedBox(height: 30),
            ProfileOptionWidget(
              text: "Setting",
              color: Colors.green.shade100,
@@ -65,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                print("sddddddddddddd");
              },
            ),
-           SizedBox(height: 25),
+           SizedBox(height: 30),
            ProfileOptionWidget(
              text: "Logout",
              color: Colors.red.shade100,

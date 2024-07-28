@@ -1,7 +1,9 @@
 import 'package:farm_booking_app/Screens/Nav%20Screens/booked_screen.dart';
 import 'package:farm_booking_app/Screens/Nav%20Screens/favourite_screen.dart';
 import 'package:farm_booking_app/Screens/Nav%20Screens/home_screen.dart';
-import 'package:farm_booking_app/Screens/Nav%20Screens/profile_screen.dart';
+import 'package:farm_booking_app/Screens/Nav%20Screens/l_profile_screen.dart';
+// import 'package:farm_booking_app/Screens/Nav%20Screens/l_profile_screen.dart';
+import 'package:farm_booking_app/Screens/Nav%20Screens/ul_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class NavbarWidget extends StatefulWidget {
@@ -19,7 +21,7 @@ class _NavbarWidgetState extends State<NavbarWidget> {
     HomeScreen(),
     FavouriteScreen(),
     BookedScreen(),
-    ProfileScreen()
+    ULProfileScreen()
   ];
 
   @override

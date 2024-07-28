@@ -5,4 +5,6 @@ class RoutesName{
 
   static const String navbarWidget = '/navbar_widget';
 
+  static const String loginScreen = '/login_screen';
+
 }

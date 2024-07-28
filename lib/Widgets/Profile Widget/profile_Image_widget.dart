@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class ProfileImageWidget extends StatefulWidget {
   const ProfileImageWidget({super.key});
@@ -18,15 +17,21 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
             print("sddddddddddddd");
           },
           child: Container(
-            height: Get.height / 7,
-            width: Get.width / 3,
+            height: 135,
             decoration: BoxDecoration(
+                color: Colors.white,
                 shape: BoxShape.circle,
-                color: Colors.black26,
-                image: DecorationImage(
-                  image: AssetImage("assets/images/splashImage.jpeg"),
-                  fit: BoxFit.cover
-                )
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 8,
+                      spreadRadius: 3
+                  )
+                ]
+            ),
+            child: CircleAvatar(
+              radius: 110,
+              backgroundImage: AssetImage('assets/images/splashImage.jpeg'),
             ),
           ),
         ),

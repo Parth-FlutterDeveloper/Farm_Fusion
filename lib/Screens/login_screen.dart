@@ -1,0 +1,171 @@
+import 'package:farm_booking_app/Routes/routes_name.dart';
+import 'package:farm_booking_app/Widgets/Common%20Widget/button_widget.dart';
+import 'package:farm_booking_app/Widgets/Common%20Widget/custom_text_field.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import '../Widgets/registration_widget/customTextFeild.dart';
+
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool load = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var _isLoading = false.obs;
+
+  Future<void> _login() async {
+    if (_formKey.currentState!.validate()) {
+      _isLoading.value = true;
+
+      // try {
+      //   await FirebaseAuth.instance.signInWithEmailAndPassword(
+      //     email: _emailController.text,
+      //     password: _passwordController.text,
+      //   );
+      //   Get.offAllNamed(RoutesName.navbarWidget.toString());
+      // } on FirebaseAuthException catch (e) {
+      //   Get.snackbar('LOGIN FAILED!', 'Enter valid email and password',backgroundColor: Colors.white,colorText: Colors.red.shade500);
+      // } finally {
+      //   _isLoading.value = false;
+      // }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.green.shade400,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Card(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Log In',
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green,
+                            fontFamily: "LocalFont",
+                            letterSpacing: 2),
+                      ),
+
+                      SizedBox(height: 30),
+
+                      CustomTextField(
+                        label: 'Email',
+                        controller: _emailController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                            return 'Please enter a valid email';
+                          }
+                          return null;
+                        },
+                      ),
+
+                      SizedBox(height: 16),
+
+                      CustomTextField(
+                        label: 'Password',
+                        controller: _passwordController,
+                        isPassword: true,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          if (value.length < 6){
+                            return 'Please enter 6 character';
+                          }
+                          return null;
+                        },
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                // Get.toNamed(RoutesName.forgetPasswordScreen.toString());
+                              },
+                              child: Text('Forget Password',style: TextStyle(
+                                fontFamily: "LocalFont",
+                                color: Colors.green.shade800,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold
+                              ),),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(height: 5),
+
+                      ButtonWidget(
+                        text: "Log In",
+                        width: 2,
+                        txtColor: Colors.white,
+                        backColor: Colors.green.shade400,
+                        onTap: () {
+                          if(_formKey.currentState!.validate()){
+
+                          }
+                        },
+                        loading: load
+                      ),
+
+                      SizedBox(height: 5),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Don't have any account?",style: TextStyle(
+                              fontFamily: "LocalFont",
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold
+                          ),),
+                          TextButton(
+                            onPressed: () {
+                              // Get.toNamed(RoutesName.registrationScreen.toString());
+                            },
+                            child: Text('Register Here',style: TextStyle(
+                                fontFamily: "LocalFont",
+                                color: Colors.green.shade800,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold
+                            ),),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

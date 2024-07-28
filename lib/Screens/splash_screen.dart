@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Column(
             children: [
-              SizedBox(height: 160),
+              SizedBox(height: 180),
               Container(
                 height: 200,
                 decoration: BoxDecoration(
@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     ]
                 ),
                 child: CircleAvatar(
-                  radius: 160,
+                  radius: 162,
                   backgroundImage: AssetImage('assets/images/splashImage.jpeg'),
                 ),
               ),
