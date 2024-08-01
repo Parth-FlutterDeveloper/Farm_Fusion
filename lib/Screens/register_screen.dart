@@ -1,5 +1,7 @@
+import 'package:farm_booking_app/Utils/utils.dart';
 import 'package:farm_booking_app/Widgets/Common%20Widget/button_widget.dart';
 import 'package:farm_booking_app/Widgets/Common%20Widget/custom_text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../Routes/routes_name.dart';
@@ -18,35 +20,45 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneNumberController  = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _phoneNumberController  = TextEditingController();
 
-  // Future<void> _signUp() async {
-  //   if (_formKey.currentState!.validate()) {
-  //     try {
-  //       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-  //         email: _emailController.text,
-  //         password: _passwordController.text,
-  //       );
-  //       // Handle successful sign-up, e.g., navigate to another screen
-  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Successfully signed up")));
-  //       Get.toNamed(RoutesName.loginScreen.toString());
-  //     } on FirebaseAuthException catch (e) {
-  //       String message;
-  //       if (e.code == 'weak-password') {
-  //         message = 'The password provided is too weak.';
-  //       } else if (e.code == 'email-already-in-use') {
-  //         message = 'The account already exists for that email.';
-  //       } else {
-  //         message = e.message ?? 'An unknown error occurred.';
-  //       }
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         SnackBar(content: Text(message)),
-  //       );
-  //     }
-  //   }
-  // }
+  FirebaseAuth userCredential = FirebaseAuth.instance;
+
+  Future<void> _signUp() async {
+    if (_formKey.currentState!.validate()) {
+      if(isChecked){
+        setState(() {
+          loading = true;
+        });
+        try {
+          await userCredential.createUserWithEmailAndPassword(
+            email: _emailController.text.toString(),
+            password: _passwordController.text.toString(),
+          );
+          setState(() {
+            loading = false;
+          });
+          Utils().toastMessage("Successfully Signed Up");
+          Get.offNamed(RoutesName.loginScreen.toString());
+        } on FirebaseAuthException catch (e) {
+          String message;
+          if (e.code == 'weak-password') {
+            message = 'The password provided is too weak';
+          } else if (e.code == 'email-already-in-use') {
+            message = 'The account already exists';
+          } else {
+            message = e.message ?? 'Something went wrong';
+          }
+          Utils().toastMessage(message);
+          setState(() {
+            loading = false;
+          });
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +123,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       CustomTextField(
                         label: 'Password',
                         controller: _passwordController,
-                        isPassword: true,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your password';
@@ -127,8 +138,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       CustomTextField(
                         label: 'City',
-                        controller: _confirmPasswordController,
-                        isPassword: true,
+                        controller: _cityController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your City';
@@ -153,6 +163,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                       ),
                       SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: ButtonWidget(
+                              text: "Verify",
+                              width: 4,
+                              onTap: () {
+                                if(_phoneNumberController.text.isNotEmpty && _phoneNumberController.text.length == 10){
+                                  userCredential.verifyPhoneNumber(
+                                      phoneNumber: _phoneNumberController.text,
+                                      verificationCompleted: (_){},
+                                      verificationFailed: (e) {
+                                        Utils().toastMessage("Something Went Wrong");
+                                      },
+                                      codeSent: (String verificationId, int? token) {
+                                        Get.toNamed(
+                                            RoutesName.codeVerification.toString(),
+                                            arguments: verificationId
+                                        );
+                                      },
+                                      codeAutoRetrievalTimeout: (e) {
+                                        Utils().toastMessage("Something Went Wrong");
+                                      }
+                                  );
+                                }else{
+                                  Utils().toastMessage("Please Enter Valid Number");
+                                }
+                              },
+                            loading: loading,
+                            txtColor: Colors.white,
+                            backColor: Colors.green.shade400,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
 
 
                       CheckboxListTile(
@@ -168,7 +214,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         title: Text('I accept all your terms and conditions.',
                         style: TextStyle(
                             fontFamily: "LocalFont",
-                            color: Colors.green.shade900,
+                            color: isChecked ? Colors.green.shade900 : Colors.red,
                             fontSize: 17,
                             fontWeight: FontWeight.bold
                         ),),
@@ -183,14 +229,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           txtColor: Colors.white,
                           backColor: Colors.green.shade400,
                           onTap: () {
-                            // if(_formKey.currentState!.validate()){
-                            //   if(isChecked){
-                            //     Get.offNamed(RoutesName.loginScreen.toString());
-                            //   }
-                            // }
-                            if(isChecked){
-                              Get.offNamed(RoutesName.loginScreen.toString());
-                            }
+                            _signUp();
                           },
                       ),
 

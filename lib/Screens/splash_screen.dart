@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
 
-    Timer(Duration(seconds: 3), (){
+    Timer(Duration(seconds: 2), (){
       Get.offNamed(RoutesName.navbarWidget.toString());
     });
   }
@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green.shade200,
+      backgroundColor: Colors.green.shade300,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [

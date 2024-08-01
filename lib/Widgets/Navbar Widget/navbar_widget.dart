@@ -1,9 +1,4 @@
-import 'package:farm_booking_app/Screens/Nav%20Screens/booked_screen.dart';
-import 'package:farm_booking_app/Screens/Nav%20Screens/favourite_screen.dart';
-import 'package:farm_booking_app/Screens/Nav%20Screens/home_screen.dart';
-import 'package:farm_booking_app/Screens/Nav%20Screens/l_profile_screen.dart';
-// import 'package:farm_booking_app/Screens/Nav%20Screens/l_profile_screen.dart';
-import 'package:farm_booking_app/Screens/Nav%20Screens/ul_profile_screen.dart';
+import 'package:farm_booking_app/Widgets/Navbar%20Widget/check_login.dart';
 import 'package:flutter/material.dart';
 
 class NavbarWidget extends StatefulWidget {
@@ -17,46 +12,46 @@ class _NavbarWidgetState extends State<NavbarWidget> {
 
   int selectedIndex = 0;
 
-  final screens = [
-    HomeScreen(),
-    FavouriteScreen(),
-    BookedScreen(),
-    ULProfileScreen()
-  ];
+  List<Widget> screens = [];
+  CheckLoginProcess isCheck = CheckLoginProcess();
+
+  @override
+  void initState() {
+    super.initState();
+    screens = isCheck.isLogin(context);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: screens[selectedIndex],
-      bottomNavigationBar: Container(
-        child: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: Colors.green,
-          selectedLabelStyle: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 17,
-            fontFamily: "LocalFont"
-          ),
-          unselectedLabelStyle: TextStyle(
-              fontFamily: "LocalFont",
-              fontSize: 14,
-              fontWeight: FontWeight.bold
-          ),
-          currentIndex: selectedIndex,
-          onTap: (index) {
-            setState(() {
-              selectedIndex = index;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home",),
-            BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favourits"),
-            BottomNavigationBarItem(icon: Icon(Icons.book), label: "Booked"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-          ],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.green,
+        selectedLabelStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 17,
+          fontFamily: "LocalFont"
         ),
+        unselectedLabelStyle: TextStyle(
+            fontFamily: "LocalFont",
+            fontSize: 14,
+            fontWeight: FontWeight.bold
+        ),
+        currentIndex: selectedIndex,
+        onTap: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home",),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favourits"),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: "Booked"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+        ],
       ),
     );
   }

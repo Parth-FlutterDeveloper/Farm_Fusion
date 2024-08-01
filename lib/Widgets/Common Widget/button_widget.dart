@@ -39,8 +39,8 @@ class _ButtonWidgetState extends State<ButtonWidget> {
         child: Center(
           child: widget.loading
           ? CircularProgressIndicator(
-            color: Colors.green.shade800,
-            strokeWidth: 2.2,
+            color: Colors.black,
+            strokeWidth: 2.5,
           )
           : Text(widget.text,style: TextStyle(
               fontWeight: FontWeight.bold,

@@ -1,10 +1,10 @@
 import 'package:farm_booking_app/Routes/routes_name.dart';
+import 'package:farm_booking_app/Utils/utils.dart';
 import 'package:farm_booking_app/Widgets/Common%20Widget/button_widget.dart';
 import 'package:farm_booking_app/Widgets/Common%20Widget/custom_text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import '../Widgets/registration_widget/customTextFeild.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -12,29 +12,34 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
   bool loading = false;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  var _isLoading = false.obs;
 
-  // Future<void> _login() async {
-  //   if (_formKey.currentState!.validate()) {
-  //     _isLoading.value = true;
-  //
-  //     try {
-  //       await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //         email: _emailController.text,
-  //         password: _passwordController.text,
-  //       );
-  //       Get.offAllNamed(RoutesName.navbarWidget.toString());
-  //     } on FirebaseAuthException catch (e) {
-  //       Get.snackbar('LOGIN FAILED!', 'Enter valid email and password',backgroundColor: Colors.white,colorText: Colors.red.shade500);
-  //     } finally {
-  //       _isLoading.value = false;
-  //     }
-  //   }
-  // }
+  Future<void> _login() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        loading = true;
+      });
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+        Get.offAllNamed(RoutesName.navbarWidget.toString());
+        setState(() {
+          loading = false;
+        });
+      } on FirebaseAuthException catch (e) {
+        Utils().toastMessage('Login Failed !!');
+        setState(() {
+          loading = false;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +69,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontWeight: FontWeight.bold,
                             color: Colors.green,
                             fontFamily: "LocalFont",
-                            letterSpacing: 2),
+                            letterSpacing: 2
+                        ),
                       ),
 
                       SizedBox(height: 30),
@@ -107,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             TextButton(
                               onPressed: () {
-                                // Get.toNamed(RoutesName.forgetPasswordScreen.toString());
+                                Get.toNamed(RoutesName.forgotPassword.toString());
                               },
                               child: Text('Forget Password',style: TextStyle(
                                 fontFamily: "LocalFont",
@@ -129,9 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         txtColor: Colors.white,
                         backColor: Colors.green.shade400,
                         onTap: () {
-                          if(_formKey.currentState!.validate()){
-
-                          }
+                          _login();
                         },
                       ),
 

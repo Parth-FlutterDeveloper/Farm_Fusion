@@ -9,4 +9,8 @@ class RoutesName{
 
   static const String registerScreen = '/register_screen';
 
+  static const String forgotPassword = '/forgot_password';
+
+  static const String codeVerification = '/code_verification';
+
 }

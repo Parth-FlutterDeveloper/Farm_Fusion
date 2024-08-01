@@ -1,9 +1,10 @@
 
 // Profile Screen for Logged in Users.
 
-import 'package:farm_booking_app/Widgets/Profile%20Widget/profile_Image_widget.dart';
-import 'package:farm_booking_app/Widgets/Profile%20Widget/profile_option_widget.dart';
 import 'package:flutter/material.dart';
+import '../../Widgets/Logged Profile Widget/logout_dialog.dart';
+import '../../Widgets/Logged Profile Widget/profile_Image_widget.dart';
+import '../../Widgets/Logged Profile Widget/profile_option_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -13,6 +14,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  LogoutDialog logoutDialog = LogoutDialog();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,12 +35,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
          children:  [
            SizedBox(height: 80),
            ProfileImageWidget(),
-           SizedBox(height: 30),
+           SizedBox(height: 40),
 
            ProfileOptionWidget(
              text: "Favourite",
              color: Colors.green.shade100,
-             icon: Icon(Icons.favorite),
+             icon: Icon(Icons.favorite,size: 22),
              onTap: () {
                print("sddddddddddddd");
              },
@@ -45,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
            ProfileOptionWidget(
              text: "Booked Farm",
              color: Colors.green.shade100,
-             icon: Icon(Icons.book),
+             icon: Icon(Icons.book,size: 22),
              onTap: () {
                print("sddddddddddddd");
              },
@@ -54,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
            ProfileOptionWidget(
              text: "Setting",
              color: Colors.green.shade100,
-             icon: Icon(Icons.settings),
+             icon: Icon(Icons.settings,size: 24,),
              onTap: () {
                print("sddddddddddddd");
              },
@@ -63,9 +67,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
            ProfileOptionWidget(
              text: "Logout",
              color: Colors.red.shade100,
-             icon: Icon(Icons.logout),
+             icon: Icon(Icons.logout,size: 22),
              onTap: () {
-               print("sddddddddddddd");
+               logoutDialog.showLogoutDialog(context);
              },
            ),
          ],

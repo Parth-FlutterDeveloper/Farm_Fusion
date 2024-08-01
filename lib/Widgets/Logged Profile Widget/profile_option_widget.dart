@@ -41,7 +41,7 @@ class _ProfileOptionWidgetState extends State<ProfileOptionWidget> {
                 Text(widget.text,style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontFamily: 'LocalFont',
-                    fontSize: 23,
+                    fontSize: 21,
                     letterSpacing: 1
                 ),)
               ],
