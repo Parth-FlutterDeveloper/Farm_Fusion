@@ -29,11 +29,12 @@ class _LoginScreenState extends State<LoginScreen> {
           password: _passwordController.text,
         );
         Get.offAllNamed(RoutesName.navbarWidget.toString());
+        Utils().toastMessage("Login Successfully");
         setState(() {
           loading = false;
         });
       } on FirebaseAuthException catch (e) {
-        Utils().toastMessage('Login Failed !!');
+        Utils().redToastMessage('Login Failed !!');
         setState(() {
           loading = false;
         });

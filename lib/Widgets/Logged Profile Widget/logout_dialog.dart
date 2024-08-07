@@ -32,7 +32,6 @@ class LogoutDialog {
               onPressed: () {
                 auth.signOut()
                     .then((value) {
-                  // Get.offNamed(RoutesName.splashScreen.toString());
                   Get.offAllNamed(RoutesName.navbarWidget.toString());
                 })
                     .onError((error, stackTrace) {

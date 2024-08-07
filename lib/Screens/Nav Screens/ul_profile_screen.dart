@@ -36,7 +36,7 @@ class _ULProfileScreenState extends State<ULProfileScreen> {
           child: Column(
             children: [
 
-              SizedBox(height: 70),
+              SizedBox(height: 75),
 
               Container(
                 height: 200,
@@ -65,10 +65,10 @@ class _ULProfileScreenState extends State<ULProfileScreen> {
                 color: Colors.green.shade800
               ),),
 
-              SizedBox(height: 70),
+              SizedBox(height: 60),
 
               ButtonWidget(
-                  width: 1.6,
+                  width: 1.7,
                   loading: load,
                   txtColor: Colors.black,
                   backColor: Colors.green.shade200,
@@ -85,7 +85,7 @@ class _ULProfileScreenState extends State<ULProfileScreen> {
               ),
               SizedBox(height: 20),
               ButtonWidget(
-                  width: 1.6,
+                  width: 1.7,
                   loading: load,
                   txtColor: Colors.black,
                   backColor: Colors.green.shade200,

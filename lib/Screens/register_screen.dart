@@ -15,7 +15,9 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
 
+  var indiaPin = "+91 ";
   bool loading = false;
+  bool verifyLoading = false;
   bool isChecked = false;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
@@ -148,21 +150,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       SizedBox(height: 10),
 
-
-                      CustomTextField(
-                        label: 'Phone Verification',
-                        controller: _phoneNumberController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your phone number';
-                          }
-                          if (!RegExp(r'^\+?[0-9]{10,13}$').hasMatch(value)) {
-                            return 'Please enter a valid phone number';
-                          }
-                          return null;
-                        },
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 15),
+                        child: TextFormField(
+                          controller: _phoneNumberController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            labelText: 'Phone Verification',
+                            prefixText: indiaPin,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(11)
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your phone number';
+                            }
+                            if (!RegExp(r'^\+?[0-9]{10,13}$').hasMatch(value)) {
+                              return 'Please enter a valid phone number';
+                            }
+                            return null;
+                            },
+                        ),
                       ),
                       SizedBox(height: 10),
+
                       Padding(
                         padding: const EdgeInsets.only(right: 16),
                         child: Align(
@@ -171,28 +183,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               text: "Verify",
                               width: 4,
                               onTap: () {
-                                if(_phoneNumberController.text.isNotEmpty && _phoneNumberController.text.length == 10){
+                                setState(() {
+                                  verifyLoading = true;
+                                });
+                                if(_phoneNumberController.text.isNotEmpty){
                                   userCredential.verifyPhoneNumber(
-                                      phoneNumber: _phoneNumberController.text,
+                                      phoneNumber: indiaPin + _phoneNumberController.text,
                                       verificationCompleted: (_){},
                                       verificationFailed: (e) {
-                                        Utils().toastMessage("Something Went Wrong");
+                                        Utils().redToastMessage("Something Went Wrong\nPlease Try Later");
+                                        setState(() {
+                                          verifyLoading = false;
+                                        });
                                       },
                                       codeSent: (String verificationId, int? token) {
                                         Get.toNamed(
-                                            RoutesName.codeVerification.toString(),
+                                            RoutesName.codeVerification,
                                             arguments: verificationId
                                         );
+                                        setState(() {
+                                          verifyLoading = false;
+                                        });
                                       },
                                       codeAutoRetrievalTimeout: (e) {
-                                        Utils().toastMessage("Something Went Wrong");
+                                        setState(() {
+                                          verifyLoading = false;
+                                        });
                                       }
                                   );
                                 }else{
-                                  Utils().toastMessage("Please Enter Valid Number");
+                                  Utils().redToastMessage("Please Enter Valid Number");
+                                  setState(() {
+                                    verifyLoading = false;
+                                  });
                                 }
                               },
-                            loading: loading,
+                            loading: verifyLoading,
                             txtColor: Colors.white,
                             backColor: Colors.green.shade400,
                           ),
