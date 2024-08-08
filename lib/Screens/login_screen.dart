@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../Services/shared_preference.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -14,8 +16,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
 
   bool loading = false;
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  SharedPreferenceHelper spHelper = SharedPreferenceHelper();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Future<void> _login() async {
@@ -28,6 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
           email: _emailController.text,
           password: _passwordController.text,
         );
+        await spHelper.saveUserName(_nameController.text);
+        await spHelper.saveUserEmail(_emailController.text);
         Get.offAllNamed(RoutesName.navbarWidget.toString());
         Utils().toastMessage("Login Successfully");
         setState(() {
@@ -75,6 +81,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
 
                       SizedBox(height: 30),
+
+                      CustomTextField(
+                        label: 'Name',
+                        controller: _nameController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your Name';
+                          }
+                          return null;
+                        },
+                      ),
+
+                      SizedBox(height: 16),
 
                       CustomTextField(
                         label: 'Email',

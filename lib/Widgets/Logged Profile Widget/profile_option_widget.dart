@@ -25,7 +25,7 @@ class _ProfileOptionWidgetState extends State<ProfileOptionWidget> {
     return InkWell(
       onTap: widget.onTap,
       child: Container(
-        margin: EdgeInsets.only(left: 40,right: 40),
+        margin: EdgeInsets.only(left: 45,right: 45),
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
             color: widget.color,

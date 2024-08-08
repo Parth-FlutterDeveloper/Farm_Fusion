@@ -22,6 +22,38 @@ class _CodeVerificationState extends State<CodeVerification> {
   final TextEditingController _otpController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+
+  Future<void> verifyCode() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        loading = true;
+      });
+      try {
+
+        PhoneAuthCredential credential = PhoneAuthProvider.credential(
+          verificationId: widget.verificationId,
+          smsCode: _otpController.text.trim(),
+        );
+        UserCredential userCredential = await auth.signInWithCredential(credential);
+        if (auth.currentUser != null) {
+          await auth.currentUser!.delete();
+        }
+        Utils().toastMessage("Verified Successfully");
+        Get.back();
+
+      } catch (e) {
+        Utils().redToastMessage("Verification failed. Please try again.");
+      } finally {
+        setState(() {
+          loading = false;
+        });
+      }
+    } else {
+      Utils().redToastMessage("Please enter a valid OTP.");
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,34 +126,8 @@ class _CodeVerificationState extends State<CodeVerification> {
                         loading: loading,
                         txtColor: Colors.white,
                         backColor: Colors.green.shade400,
-                        onTap: () async {
-                          if (_formKey.currentState!.validate()) {
-                            setState(() {
-                              loading = true;
-                            });
-                            try {
-
-                              PhoneAuthCredential credential = PhoneAuthProvider.credential(
-                                verificationId: widget.verificationId,
-                                smsCode: _otpController.text.trim(),
-                              );
-                              UserCredential userCredential = await auth.signInWithCredential(credential);
-                              if (auth.currentUser != null) {
-                                await auth.signOut();
-                              }
-                              Utils().toastMessage("Verified Successfully");
-                              Get.back();
-
-                            } catch (e) {
-                              Utils().redToastMessage("Verification failed. Please try again.");
-                            } finally {
-                              setState(() {
-                                loading = false;
-                              });
-                            }
-                          } else {
-                            Utils().redToastMessage("Please enter a valid OTP.");
-                          }
+                        onTap: () {
+                          verifyCode();
                         },
                       ),
                       const SizedBox(height: 5),

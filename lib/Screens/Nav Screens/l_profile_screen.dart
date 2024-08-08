@@ -16,7 +16,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   LogoutDialog logoutDialog = LogoutDialog();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
        body: Column(
          children:  [
-           SizedBox(height: 80),
+           SizedBox(height: 70),
            ProfileImageWidget(),
            SizedBox(height: 40),
 

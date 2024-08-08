@@ -1,3 +1,4 @@
+import 'package:farm_booking_app/Services/database.dart';
 import 'package:farm_booking_app/Utils/utils.dart';
 import 'package:farm_booking_app/Widgets/Common%20Widget/button_widget.dart';
 import 'package:farm_booking_app/Widgets/Common%20Widget/custom_text_field.dart';
@@ -26,7 +27,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _phoneNumberController  = TextEditingController();
 
+  DatabaseMethod dbMethod = DatabaseMethod();
   FirebaseAuth userCredential = FirebaseAuth.instance;
+
+  Future<void> verifyPhone() async {
+    setState(() {
+      verifyLoading = true;
+    });
+    if(_phoneNumberController.text.isNotEmpty) {
+      await userCredential.verifyPhoneNumber(
+          phoneNumber: indiaPin + _phoneNumberController.text,
+          verificationCompleted: (_){},
+          verificationFailed: (e) {
+            Utils().redToastMessage("Something Went Wrong\nPlease Try Later");
+            setState(() {
+              verifyLoading = false;
+            });
+          },
+          codeSent: (String verificationId, int? token) {
+            Get.toNamed(
+                RoutesName.codeVerification,
+                arguments: verificationId
+            );
+            setState(() {
+              verifyLoading = false;
+            });
+          },
+          codeAutoRetrievalTimeout: (e) {
+            setState(() {
+              verifyLoading = false;
+            });
+          }
+      );
+    }else{
+      Utils().redToastMessage("Please Enter Valid Number");
+      setState(() {
+        verifyLoading = false;
+      });
+    }
+  }
+
 
   Future<void> _signUp() async {
     if (_formKey.currentState!.validate()) {
@@ -39,6 +79,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
             email: _emailController.text.toString(),
             password: _passwordController.text.toString(),
           );
+          //---------- Add User Details ------------
+          String id = DateTime.now().millisecondsSinceEpoch.toString();
+          String role = "user";
+          Map<String, dynamic> userInfoMap = {
+            "Id": id,
+            "Role": role,
+            "Name": _nameController.text,
+            "Email": _emailController.text,
+            "Password": _passwordController.text,
+            "City": _cityController.text,
+            "Phone Number": indiaPin + _phoneNumberController.text
+          };
+          dbMethod.addUserDetails(userInfoMap, id);
+          //----------------------------------------
           setState(() {
             loading = false;
           });
@@ -183,40 +237,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               text: "Verify",
                               width: 4,
                               onTap: () {
-                                setState(() {
-                                  verifyLoading = true;
-                                });
-                                if(_phoneNumberController.text.isNotEmpty){
-                                  userCredential.verifyPhoneNumber(
-                                      phoneNumber: indiaPin + _phoneNumberController.text,
-                                      verificationCompleted: (_){},
-                                      verificationFailed: (e) {
-                                        Utils().redToastMessage("Something Went Wrong\nPlease Try Later");
-                                        setState(() {
-                                          verifyLoading = false;
-                                        });
-                                      },
-                                      codeSent: (String verificationId, int? token) {
-                                        Get.toNamed(
-                                            RoutesName.codeVerification,
-                                            arguments: verificationId
-                                        );
-                                        setState(() {
-                                          verifyLoading = false;
-                                        });
-                                      },
-                                      codeAutoRetrievalTimeout: (e) {
-                                        setState(() {
-                                          verifyLoading = false;
-                                        });
-                                      }
-                                  );
-                                }else{
-                                  Utils().redToastMessage("Please Enter Valid Number");
-                                  setState(() {
-                                    verifyLoading = false;
-                                  });
-                                }
+                                verifyPhone();
                               },
                             loading: verifyLoading,
                             txtColor: Colors.white,

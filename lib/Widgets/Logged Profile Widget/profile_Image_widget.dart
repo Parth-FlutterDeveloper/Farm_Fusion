@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../Services/shared_preference.dart';
+
 class ProfileImageWidget extends StatefulWidget {
   const ProfileImageWidget({super.key});
 
@@ -8,6 +10,25 @@ class ProfileImageWidget extends StatefulWidget {
 }
 
 class _ProfileImageWidgetState extends State<ProfileImageWidget> {
+
+  String? name,email;
+  SharedPreferenceHelper spHelper = SharedPreferenceHelper();
+
+  getDataFromSPHelper() async {
+    name = await spHelper.getUserName();
+    email = await spHelper.getUserEmail();
+    setState(() {
+
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getDataFromSPHelper();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -17,7 +38,8 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
             print("sddddddddddddd");
           },
           child: Container(
-            height: 135,
+            height: 145,
+            width: 145,
             decoration: BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.circle,
@@ -30,20 +52,20 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
                 ]
             ),
             child: CircleAvatar(
-              radius: 110,
-              backgroundImage: AssetImage('assets/images/splashImage.jpeg'),
+              backgroundColor: Colors.green.shade100,
+              foregroundImage: AssetImage('assets/images/rendomPerson.png'),
             ),
           ),
         ),
         SizedBox(height: 20),
-        Text("Name",style: TextStyle(
-          fontSize: 19,
+        Text(name == null ? "Name" : "$name",style: TextStyle(
+          fontSize: 23,
           fontFamily: 'LocalFont',
           fontWeight: FontWeight.bold,
           letterSpacing: 1
         ),),
-        Text("Email",style: TextStyle(
-            fontSize: 17,
+        Text(email == null ? "Name" : "$email",style: TextStyle(
+            fontSize: 18,
             fontFamily: 'LocalFont',
             fontWeight: FontWeight.bold,
             letterSpacing: 1
