@@ -1,10 +1,15 @@
 
 // Profile Screen for Logged in Users.
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../Widgets/Logged Profile Widget/logout_dialog.dart';
+import 'package:get/get.dart';
+import '../../../Common Widget/logout_dialog.dart';
+import '../../../Routes/routes_name.dart';
+import '../../../Utils/utils.dart';
 import '../../Widgets/Logged Profile Widget/profile_Image_widget.dart';
-import '../../Widgets/Logged Profile Widget/profile_option_widget.dart';
+import '../../../Common Widget/profile_option_widget.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -15,6 +20,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
 
+  final auth = FirebaseAuth.instance;
   LogoutDialog logoutDialog = LogoutDialog();
 
   @override
@@ -33,6 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
        body: Column(
          children:  [
+
            SizedBox(height: 70),
            ProfileImageWidget(),
            SizedBox(height: 40),
@@ -69,7 +76,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
              color: Colors.red.shade100,
              icon: Icon(Icons.logout,size: 22),
              onTap: () {
-               logoutDialog.showLogoutDialog(context);
+               logoutDialog.showLogoutDialog(
+                  context,
+                  () {
+                      auth.signOut()
+                      .then((value) {
+                          Get.offAllNamed(RoutesName.navbarWidget.toString());
+                      })
+                      .onError((error, stackTrace) {
+                          Utils().toastMessage("Something Went Wrong, Please Try Again");
+                      });
+                  },
+               );
              },
            ),
          ],

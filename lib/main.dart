@@ -1,10 +1,11 @@
 import 'package:farm_booking_app/Routes/routes.dart';
-import 'package:farm_booking_app/Screens/splash_screen.dart';
 import 'package:farm_booking_app/Utils/utils.dart';
 import 'package:farm_booking_app/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+import 'User/Screens/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

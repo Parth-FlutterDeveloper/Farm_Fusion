@@ -1,12 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_booking_app/Routes/routes_name.dart';
+import 'package:farm_booking_app/Services/database.dart';
 import 'package:farm_booking_app/Utils/utils.dart';
-import 'package:farm_booking_app/Widgets/Common%20Widget/button_widget.dart';
-import 'package:farm_booking_app/Widgets/Common%20Widget/custom_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../Common Widget/button_widget.dart';
+import '../../Common Widget/custom_text_field.dart';
+import '../../Services/shared_preference.dart';
 
-import '../Services/shared_preference.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -16,11 +18,14 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
 
   bool loading = false;
+  bool adminLoading = false;
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   SharedPreferenceHelper spHelper = SharedPreferenceHelper();
+  DatabaseMethod dbMethod = DatabaseMethod();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
 
   Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
@@ -47,6 +52,37 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
   }
+
+
+  Future<void> _adminLogin() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        adminLoading = true;
+      });
+      try {
+        final QuerySnapshot adminSnapshot = await FirebaseFirestore.instance
+            .collection("admin")
+            .where('email', isEqualTo: _emailController.text)
+            .where('password', isEqualTo: _passwordController.text)
+            .get();
+        if (adminSnapshot.docs.isNotEmpty) {
+          await spHelper.saveUserName(_nameController.text);
+          await spHelper.saveUserEmail(_emailController.text);
+          Utils().toastMessage("Login successfully as Admin");
+          Get.offAllNamed(RoutesName.adminNavbarWidget);
+        } else {
+          Utils().redToastMessage('Invalid Admin Credentials!!');
+        }
+      } on FirebaseException {
+        Utils().redToastMessage('Login failed as Admin!!');
+      } finally {
+        setState(() {
+          adminLoading = false;
+        });
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -156,6 +192,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         backColor: Colors.green.shade400,
                         onTap: () {
                           _login();
+                        },
+                      ),
+
+                      SizedBox(height: 18),
+
+                      ButtonWidget(
+                        text: "Admin Login",
+                        width: 2,
+                        loading: adminLoading,
+                        txtColor: Colors.white,
+                        backColor: Colors.green.shade400,
+                        onTap: () {
+                          _adminLogin();
                         },
                       ),
 

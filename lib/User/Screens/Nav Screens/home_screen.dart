@@ -1,6 +1,6 @@
-import 'package:farm_booking_app/Widgets/Home%20Widget/offer_template_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../Widgets/Home Widget/offer_template_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,6 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

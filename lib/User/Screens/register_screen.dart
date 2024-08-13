@@ -1,11 +1,11 @@
 import 'package:farm_booking_app/Services/database.dart';
 import 'package:farm_booking_app/Utils/utils.dart';
-import 'package:farm_booking_app/Widgets/Common%20Widget/button_widget.dart';
-import 'package:farm_booking_app/Widgets/Common%20Widget/custom_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../Routes/routes_name.dart';
+import '../../Common Widget/button_widget.dart';
+import '../../Common Widget/custom_text_field.dart';
+import '../../Routes/routes_name.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

@@ -1,9 +1,9 @@
-import 'package:farm_booking_app/Routes/routes_name.dart';
 import 'package:farm_booking_app/Utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../Common Widget/button_widget.dart';
+
+import '../../../Common Widget/button_widget.dart';
 
 class CodeVerification extends StatefulWidget {
   final String verificationId;

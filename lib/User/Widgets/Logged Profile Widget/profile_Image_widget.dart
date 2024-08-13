@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../Services/shared_preference.dart';
+import '../../../Services/shared_preference.dart';
 
 class ProfileImageWidget extends StatefulWidget {
   const ProfileImageWidget({super.key});
@@ -18,7 +17,6 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
     name = await spHelper.getUserName();
     email = await spHelper.getUserEmail();
     setState(() {
-
     });
   }
 
@@ -64,8 +62,8 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
           fontWeight: FontWeight.bold,
           letterSpacing: 1
         ),),
-        Text(email == null ? "Name" : "$email",style: TextStyle(
-            fontSize: 18,
+        Text(email == null ? "Email" : "$email",style: TextStyle(
+            fontSize: 17,
             fontFamily: 'LocalFont',
             fontWeight: FontWeight.bold,
             letterSpacing: 1
