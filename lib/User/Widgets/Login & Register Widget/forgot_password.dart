@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../Common Widget/button_widget.dart';
-import '../../../Common Widget/custom_text_field.dart';
+import 'custom_text_field.dart';
 
 
 class ForgotPassword extends StatefulWidget {

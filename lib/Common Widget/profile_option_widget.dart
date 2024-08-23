@@ -22,34 +22,34 @@ class ProfileOptionWidget extends StatefulWidget {
 class _ProfileOptionWidgetState extends State<ProfileOptionWidget> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: widget.onTap,
-      child: Container(
-        margin: EdgeInsets.only(left: 45,right: 45),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-            color: widget.color,
-            borderRadius: BorderRadius.circular(11)
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
+    return GestureDetector(
+        onTap: widget.onTap,
+        child: Container(
+          margin: EdgeInsets.only(left: 40,right: 40),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              color: widget.color,
+              borderRadius: BorderRadius.circular(11)
+          ),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                widget.icon,
-                SizedBox(width: 15),
-                Text(widget.text,style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'LocalFont',
-                    fontSize: 21,
-                    letterSpacing: 1
-                ),)
+                Row(
+                  children: [
+                    widget.icon,
+                    SizedBox(width: 15),
+                    Text(widget.text,style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'LocalFont',
+                        fontSize: 21,
+                        letterSpacing: 1
+                    ),)
+                  ],
+                ),
+                Icon(Icons.arrow_forward_ios_outlined)
               ],
             ),
-            Icon(Icons.arrow_forward_ios_outlined)
-          ],
         ),
-      ),
-    );
+      );
   }
 }

@@ -6,16 +6,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Common Widget/button_widget.dart';
-import '../../Common Widget/custom_text_field.dart';
+import '../Widgets/Login & Register Widget/custom_text_field.dart';
 import '../../Services/shared_preference.dart';
 
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreenState extends State<LoginScreen> {
 
   bool loading = false;
   bool adminLoading = false;
@@ -39,8 +41,24 @@ class _LoginScreenState extends State<LoginScreen> {
         );
         await spHelper.saveUserName(_nameController.text);
         await spHelper.saveUserEmail(_emailController.text);
-        Get.offAllNamed(RoutesName.navbarWidget.toString());
-        Utils().toastMessage("Login Successfully");
+        QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+            .collection("users")
+            .where('Email', isEqualTo: _emailController.text)
+            .get();
+        if (querySnapshot.docs.isNotEmpty){
+          DocumentSnapshot userDoc = querySnapshot.docs.first;
+          String fetchedRole = userDoc["Role"];
+          if(fetchedRole == "admin"){
+            Get.offAllNamed(RoutesName.adminNavbarWidget);
+            Utils().toastMessage("Login successfully as Admin");
+          }else{
+            Get.offAllNamed(RoutesName.navbarWidget.toString());
+            Utils().toastMessage("Login Successfully");
+          }
+        }
+        else{
+          Utils().redToastMessage("Login Failed !!");
+        }
         setState(() {
           loading = false;
         });
@@ -48,36 +66,6 @@ class _LoginScreenState extends State<LoginScreen> {
         Utils().redToastMessage('Login Failed !!');
         setState(() {
           loading = false;
-        });
-      }
-    }
-  }
-
-
-  Future<void> _adminLogin() async {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        adminLoading = true;
-      });
-      try {
-        final QuerySnapshot adminSnapshot = await FirebaseFirestore.instance
-            .collection("admin")
-            .where('email', isEqualTo: _emailController.text)
-            .where('password', isEqualTo: _passwordController.text)
-            .get();
-        if (adminSnapshot.docs.isNotEmpty) {
-          await spHelper.saveUserName(_nameController.text);
-          await spHelper.saveUserEmail(_emailController.text);
-          Utils().toastMessage("Login successfully as Admin");
-          Get.offAllNamed(RoutesName.adminNavbarWidget);
-        } else {
-          Utils().redToastMessage('Invalid Admin Credentials!!');
-        }
-      } on FirebaseException {
-        Utils().redToastMessage('Login failed as Admin!!');
-      } finally {
-        setState(() {
-          adminLoading = false;
         });
       }
     }
@@ -192,19 +180,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         backColor: Colors.green.shade400,
                         onTap: () {
                           _login();
-                        },
-                      ),
-
-                      SizedBox(height: 18),
-
-                      ButtonWidget(
-                        text: "Admin Login",
-                        width: 2,
-                        loading: adminLoading,
-                        txtColor: Colors.white,
-                        backColor: Colors.green.shade400,
-                        onTap: () {
-                          _adminLogin();
                         },
                       ),
 

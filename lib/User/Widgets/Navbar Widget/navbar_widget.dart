@@ -48,7 +48,7 @@ class _NavbarWidgetState extends State<NavbarWidget> {
         },
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home",),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favourits"),
+          // BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favourits"),
           BottomNavigationBarItem(icon: Icon(Icons.book), label: "Booked"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],

@@ -52,7 +52,7 @@ class _AdminProfileImageWidgetState extends State<AdminProfileImageWidget> {
             ),
             child: CircleAvatar(
               backgroundColor: Colors.green.shade100,
-              foregroundImage: AssetImage('assets/images/rendomPerson.png'),
+              foregroundImage: AssetImage('assets/images/randomPerson.png'),
             ),
           ),
         ),

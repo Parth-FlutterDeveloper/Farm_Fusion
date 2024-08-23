@@ -48,26 +48,30 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 10),
             ListView.separated(
-                itemCount: 2,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      print("sddddddddddddd");
-                    },
-                    child: Container(
-                        margin: EdgeInsets.only(left: 20,right: 20),
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(11),
-                          color: Colors.black26,
-                        ),
-                        height: Get.height / 2.5,
-                        // child: Center(child: Text('List of Farm')),
-                    ),
-                  );
-                }, separatorBuilder: (BuildContext context, int index) => SizedBox(height: 20),
+              itemCount: 1,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: EdgeInsets.only(left: 20,right: 20),
+                  width: Get.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(11),
+                    color: Colors.black26,
+                  ),
+                  height: Get.height / 2.8,
+                  child: InkWell(
+                      onTap: () {
+                        print("sddddddddddddd");
+                      },
+                      child: Column(
+                        children: [
+
+                        ],
+                      )
+                  ),
+                );
+              }, separatorBuilder: (BuildContext context, int index) => SizedBox(height: 20),
             ),
 
             OfferTemplateWidget(),

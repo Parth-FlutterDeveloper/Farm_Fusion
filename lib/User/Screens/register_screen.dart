@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Common Widget/button_widget.dart';
-import '../../Common Widget/custom_text_field.dart';
+import '../Widgets/Login & Register Widget/custom_text_field.dart';
 import '../../Routes/routes_name.dart';
 
 class RegisterScreen extends StatefulWidget {

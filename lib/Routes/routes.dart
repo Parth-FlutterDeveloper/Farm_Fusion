@@ -1,5 +1,7 @@
+import 'package:farm_booking_app/Admin/Screens/add_farmScreen.dart';
 import 'package:farm_booking_app/Admin/Screens/admin_homeScreen.dart';
 import 'package:farm_booking_app/Admin/Screens/admin_profileScreen.dart';
+import 'package:farm_booking_app/Admin/Screens/update_farmScreen.dart';
 import 'package:farm_booking_app/Routes/routes_name.dart';
 import 'package:get/get.dart';
 import '../Admin/Widget/admin_navbarWidget.dart';
@@ -76,6 +78,23 @@ class AppRoutes{
     GetPage(
       name: RoutesName.adminProfileScreen,
       page: () => AdminProfileScreen(),
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.rightToLeftWithFade,
+    ),
+
+    GetPage(
+      name: RoutesName.addFarmScreen,
+      page: () => AddFarmScreen(),
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.rightToLeftWithFade,
+    ),
+
+    GetPage(
+      name: RoutesName.updateFarmScreen,
+      page: () {
+        final Map<String, dynamic> farmData = Get.arguments;
+        return UpdateFarmScreen(farmData: farmData);
+      },
       transitionDuration: Duration(milliseconds: 250),
       transition: Transition.rightToLeftWithFade,
     ),

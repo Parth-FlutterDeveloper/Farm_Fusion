@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:farm_booking_app/Routes/routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../Services/shared_preference.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -12,14 +15,38 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
+  String? email;
+  SharedPreferenceHelper spHelper = SharedPreferenceHelper();
+
+  getDataFromSPHelper() async {
+    email = await spHelper.getUserEmail();
+    setState(() {
+    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getDataFromSPHelper();
 
-    Timer(Duration(seconds: 2), (){
-      Get.offNamed(RoutesName.navbarWidget.toString());
-    });
+    Timer(Duration(seconds: 3), () async {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .where('Email', isEqualTo: email)
+          .get();
+      if (querySnapshot.docs.isNotEmpty){
+        DocumentSnapshot userDoc = querySnapshot.docs.first;
+        String fetchedRole = userDoc["Role"];
+        if(fetchedRole == "admin"){
+          Get.offNamed(RoutesName.adminNavbarWidget);
+        }else{
+          Get.offAllNamed(RoutesName.navbarWidget);
+        }
+      }else {
+        Get.offNamed(RoutesName.navbarWidget.toString());
+      }}
+    );
   }
 
   @override
@@ -81,13 +108,19 @@ class _SplashScreenState extends State<SplashScreen> {
 
           Align(
             alignment: Alignment.bottomCenter,
-            child: Text("Find peace between nature.\nBook your farmhouse today.",
-            style: TextStyle(
-              color: Colors.green.shade900,
-              fontFamily: 'SplashFont',
-              fontSize: 16.5,
-              fontWeight: FontWeight.bold
-            ),),
+            child: Column(
+              children: [
+                CircularProgressIndicator(color: Colors.green.shade900,strokeWidth: 2),
+                SizedBox(height: 30),
+                Text("Find peace between nature.\nBook your farmhouse today.",
+                style: TextStyle(
+                  color: Colors.green.shade900,
+                  fontFamily: 'SplashFont',
+                  fontSize: 16.5,
+                  fontWeight: FontWeight.bold
+                ),),
+              ],
+            ),
           ),
 
         ],

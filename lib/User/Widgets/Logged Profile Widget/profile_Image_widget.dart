@@ -51,7 +51,7 @@ class _ProfileImageWidgetState extends State<ProfileImageWidget> {
             ),
             child: CircleAvatar(
               backgroundColor: Colors.green.shade100,
-              foregroundImage: AssetImage('assets/images/rendomPerson.png'),
+              foregroundImage: AssetImage('assets/images/randomPerson.png'),
             ),
           ),
         ),
