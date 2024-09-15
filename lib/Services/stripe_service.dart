@@ -33,7 +33,6 @@ class StripeService {
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {
-        print('Failed to create Jason responseeeeeeeeeeeeeeeeeeeeeeeeeeeee');
         throw Exception("Failed to create Payment Intent");
       }
     }
@@ -45,7 +44,6 @@ class StripeService {
   static Future<void> initPaymentSheet(String amount, String currency) async {
     try{
       final paymentIntent = await createPaymentIntent(amount, currency);
-      print("run inti payment intent 1111111111111111111111111");
       await Stripe.instance.initPaymentSheet(
           paymentSheetParameters: SetupPaymentSheetParameters(
             paymentIntentClientSecret: paymentIntent['client_secret'],
@@ -53,7 +51,6 @@ class StripeService {
             style: ThemeMode.system
           )
       );
-      print("run inti payment intent 22222222222222222222222");
     }
     catch(e){
       throw Exception("Failed to init Payment Sheet");
@@ -62,9 +59,7 @@ class StripeService {
 
   static Future<void> presentPaymentSheet() async {
     try{
-      print("run present payment sheet 11111111111111111111111");
       await Stripe.instance.presentPaymentSheet();
-      print("run present payment sheet 22222222222222222222222");
     }
     catch(e) {
       throw Exception("Failed to present Payment Sheet");
