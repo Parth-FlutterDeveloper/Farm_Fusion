@@ -3,6 +3,9 @@ import 'package:farm_booking_app/Admin/Screens/admin_homeScreen.dart';
 import 'package:farm_booking_app/Admin/Screens/admin_profileScreen.dart';
 import 'package:farm_booking_app/Admin/Screens/update_farmScreen.dart';
 import 'package:farm_booking_app/Routes/routes_name.dart';
+import 'package:farm_booking_app/User/Screens/booking_screen.dart';
+import 'package:farm_booking_app/User/Screens/farm_detailsScreen.dart';
+import 'package:farm_booking_app/User/Screens/phonePe_payment.dart';
 import 'package:get/get.dart';
 import '../Admin/Widget/admin_navbarWidget.dart';
 import '../User/Screens/login_screen.dart';
@@ -95,6 +98,33 @@ class AppRoutes{
         final Map<String, dynamic> farmData = Get.arguments;
         return UpdateFarmScreen(farmData: farmData);
       },
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.rightToLeftWithFade,
+    ),
+
+    GetPage(
+      name: RoutesName.farmDetailsScreen,
+      page: () {
+        final Map<String, dynamic> farmData = Get.arguments;
+        return FarmDetailsScreen(farmData: farmData);
+      },
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.rightToLeftWithFade,
+    ),
+
+    GetPage(
+        name: RoutesName.bookingScreen,
+        page: () {
+          final Map<String, dynamic> farmIdPrice = Get.arguments;
+          return BookingScreen(farmIdPrice: farmIdPrice);
+        },
+        transitionDuration: Duration(milliseconds: 250),
+        transition: Transition.rightToLeftWithFade
+    ),
+
+    GetPage(
+      name: RoutesName.phonePePayment,
+      page: () => PhonePePayment(),
       transitionDuration: Duration(milliseconds: 250),
       transition: Transition.rightToLeftWithFade,
     ),

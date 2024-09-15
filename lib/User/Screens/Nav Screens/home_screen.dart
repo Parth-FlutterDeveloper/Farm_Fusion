@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../Widgets/Home Widget/farm_listWidget.dart';
 import '../../Widgets/Home Widget/offer_template_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,75 +16,52 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.green.shade300,
+        title: Text("Farm Fusion",style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            fontFamily: "LocalFont",
+            color: Colors.black,
+            letterSpacing: 1.5
+        ),),
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 60),
-            Center(
-              child: Text("Farm Fusion",style: TextStyle(
-                fontSize: 33,
-                fontWeight: FontWeight.bold,
-                fontFamily: "LocalFont",
-                color: Colors.green,
-                letterSpacing: 1.5
-              ),),
-            ),
-            SizedBox(height: 10),
-
+            SizedBox(height: 20),
             OfferTemplateWidget(),
+            SizedBox(height: 17),
+
+            FarmListWidget(),
 
             Container(
-              height: 57,
-              width: Get.width,
-              margin: EdgeInsets.only(right: 20.0,left: 20.0,top: 27),
+              margin: EdgeInsets.only(left: 20, right: 20, bottom: 35),
+              height: Get.height / 7.4,
               decoration: BoxDecoration(
-                color: Colors.black26,
-                borderRadius: BorderRadius.circular(11)
-              ),
-              child: Center(
-                // child: Text('Search'),
-              ),
-            ),
-            SizedBox(height: 10),
-            ListView.separated(
-              itemCount: 1,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.only(left: 20,right: 20),
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(11),
-                    color: Colors.black26,
-                  ),
-                  height: Get.height / 2.8,
-                  child: InkWell(
-                      onTap: () {
-                        print("sddddddddddddd");
-                      },
-                      child: Column(
-                        children: [
-
-                        ],
-                      )
-                  ),
-                );
-              }, separatorBuilder: (BuildContext context, int index) => SizedBox(height: 20),
-            ),
-
-            OfferTemplateWidget(),
-
-            Container(
-              margin: EdgeInsets.all(20),
-              height: Get.height / 4.2,
-              decoration: BoxDecoration(
+                color: Colors.green.shade50,
                 borderRadius: BorderRadius.circular(11),
-                color: Colors.black26
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 1,
+                        spreadRadius: 1
+                    )
+                  ]
               ),
-              // child: Center(child: Text('About App')),
+              child: Center(child: Text('A farm booking app simplifies scheduling '
+                  '\n       visits, managing reservations, and '
+                  '\n    enhancing farm experiences with easy '
+                  '\n               access to available slots.',style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green.shade900,
+                  fontFamily: "LocalFont",
+                  letterSpacing: 1
+              ))),
             ),
           ],
         ),

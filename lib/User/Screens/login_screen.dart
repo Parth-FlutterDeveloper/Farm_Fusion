@@ -47,6 +47,8 @@ class LoginScreenState extends State<LoginScreen> {
             .get();
         if (querySnapshot.docs.isNotEmpty){
           DocumentSnapshot userDoc = querySnapshot.docs.first;
+          String userId = userDoc["Id"];
+          await spHelper.saveUserId(userId);
           String fetchedRole = userDoc["Role"];
           if(fetchedRole == "admin"){
             Get.offAllNamed(RoutesName.adminNavbarWidget);
@@ -108,6 +110,7 @@ class LoginScreenState extends State<LoginScreen> {
 
                       CustomTextField(
                         label: 'Name',
+                        keyboardType: TextInputType.name,
                         controller: _nameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -121,6 +124,7 @@ class LoginScreenState extends State<LoginScreen> {
 
                       CustomTextField(
                         label: 'Email',
+                        keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -137,6 +141,7 @@ class LoginScreenState extends State<LoginScreen> {
 
                       CustomTextField(
                         label: 'Password',
+                        keyboardType: TextInputType.text,
                         controller: _passwordController,
                         isPassword: true,
                         validator: (value) {

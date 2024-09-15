@@ -38,7 +38,7 @@ class DeleteFarmDialog {
               text: "Cancel",
               width: 5,
               loading: loading,
-              txtColor: Colors.black54,
+              txtColor: Colors.green.shade900,
               backColor: Colors.transparent,
               onTap: () {
                 Get.back();

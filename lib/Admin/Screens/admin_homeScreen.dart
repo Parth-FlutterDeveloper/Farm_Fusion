@@ -1,6 +1,5 @@
-import 'package:farm_booking_app/Admin/Widget/farm_listWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import '../Widget/admin_farmListWidget.dart';
 import '../../Services/shared_preference.dart';
 
 class AdminHomeScreen extends StatefulWidget {
@@ -49,20 +48,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               ),),
             ),
 
-            Container(
-              height: 57,
-              width: Get.width,
-              margin: EdgeInsets.only(right: 20.0,left: 20.0,top: 40),
-              decoration: BoxDecoration(
-                  color: Colors.black26,
-                  borderRadius: BorderRadius.circular(11)
-              ),
-              child: Center(),
-            ),
+            SizedBox(height: 30),
 
-            SizedBox(height: 10),
-
-            FarmListWidget()
+            AdminFarmListWidget()
 
           ],
         ),

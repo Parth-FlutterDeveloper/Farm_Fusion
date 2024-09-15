@@ -104,9 +104,8 @@ class _UpdateFarmScreenState extends State<UpdateFarmScreen> {
       String id = widget.farmData['Id'];
       Map<String, dynamic> farmInfoMap = {
 
-        "Id": id,
-        "ImageUrl": _imageUrl ?? widget.farmData['ImageUrl'],
-
+      "Id": id,
+      "ImageUrl": _imageUrl ?? widget.farmData['ImageUrl'],
 
       "FarmName": farmNameController.text.isEmpty
             ? widget.farmData['FarmName']

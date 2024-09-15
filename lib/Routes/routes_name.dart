@@ -13,6 +13,12 @@ class RoutesName{
 
   static const String codeVerification = '/verify_code';
 
+  static const String farmDetailsScreen = '/farm_detailsScreen';
+
+  static const String bookingScreen = '/booking_screen';
+
+  static const String phonePePayment = '/phonePe_payment';
+
   // --------------------- Admin Routes --------------------------
 
   static const String adminHomeScreen = '/admin_homeScreen';

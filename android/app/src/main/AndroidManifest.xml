@@ -32,5 +32,12 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <!--For PhonePe-->
+        <meta-data android:name="com.phonepe.android.sdk.isUAT" android:value="true"/>
+        <meta-data android:name="com.phonepe.android.sdk.isSimulator" android:value="true"/>
+        <meta-data android:name="com.phonepe.android.sdk.MerchantId" android:value="PGTESTPAYUAT"/>
+        <meta-data android:name="com.phonepe.android.sdk.AppId" android:value="appId"/>
+
     </application>
 </manifest>

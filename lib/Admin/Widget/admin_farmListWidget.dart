@@ -4,20 +4,67 @@ import 'package:farm_booking_app/Routes/routes_name.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class FarmListWidget extends StatefulWidget {
-  const FarmListWidget({super.key});
+class AdminFarmListWidget extends StatefulWidget {
+  const AdminFarmListWidget({
+    super.key,
+  });
 
   @override
-  State<FarmListWidget> createState() => _FarmListWidgetState();
+  State<AdminFarmListWidget> createState() => _AdminFarmListWidgetState();
 }
 
-class _FarmListWidgetState extends State<FarmListWidget> {
+class _AdminFarmListWidgetState extends State<AdminFarmListWidget> {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final TextEditingController _searchController = TextEditingController();
+  String searchQuery = "";
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(11),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 1,
+                spreadRadius: 1
+              )
+            ]
+          ),
+          child: TextField(
+            controller: _searchController,
+            onChanged: (value) {
+              setState(() {
+                searchQuery = value.toLowerCase();
+              });
+            },
+            decoration: InputDecoration(
+              hintText: "Search Farms...",
+              hintStyle: TextStyle(
+                  fontSize: 19,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "LocalFont",
+                  color: Colors.black54,
+                  letterSpacing: 1.5
+              ),
+              prefixIcon: Icon(
+                Icons.search,
+                color: Colors.black
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(11),
+                borderSide: BorderSide.none,
+              ),
+              filled: true,
+              fillColor: Colors.white,
+            ),
+          ),
+        ),
+        StreamBuilder<QuerySnapshot>(
         stream: _firestore.collection('farms').snapshots(),
         builder: (context, snapshot) {
 
@@ -29,11 +76,23 @@ class _FarmListWidgetState extends State<FarmListWidget> {
             return Center(child: CircularProgressIndicator(color: Colors.green));
           }
 
+          final data = snapshot.requireData.docs.where((doc) {
+            final farmData = doc.data() as Map<String, dynamic>;
+            final farmName = farmData['FarmName']?.toString().toLowerCase() ?? '';
+            return farmName.contains(searchQuery);
+          }).toList();
+
+          if (data.isEmpty) {
+            return SizedBox(
+                height: 200,
+                child: const Center(child: Text("No Farms")));
+          }
+
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
             return Center(child: Text("No farms available"));
           }
 
-          final data = snapshot.requireData.docs;
+          // final data = snapshot.requireData.docs;
           return ListView.builder(
             itemCount: data.length,
             shrinkWrap: true,
@@ -50,13 +109,13 @@ class _FarmListWidgetState extends State<FarmListWidget> {
               var price = farmData['Price'];
 
                 return Container(
-                  margin: EdgeInsets.only(left: 20, right: 20, bottom: 25),
+                  margin: EdgeInsets.only(left: 20, right: 20, bottom: 30),
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
                           color: Colors.black26,
-                          blurRadius: 8,
-                          spreadRadius: 3
+                          blurRadius: 1,
+                          spreadRadius: 1
                       )
                     ],
                     borderRadius: BorderRadius.circular(11),
@@ -132,6 +191,7 @@ class _FarmListWidgetState extends State<FarmListWidget> {
               },
           );
         }
-    );
+      )
+    ]);
   }
 }

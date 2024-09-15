@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Common Widget/button_widget.dart';
+import '../../Services/shared_preference.dart';
 import '../Widgets/Login & Register Widget/custom_text_field.dart';
 import '../../Routes/routes_name.dart';
 
@@ -21,6 +22,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool verifyLoading = false;
   bool isChecked = false;
   final _formKey = GlobalKey<FormState>();
+  SharedPreferenceHelper spHelper = SharedPreferenceHelper();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -149,6 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       CustomTextField(
                         label: 'Name',
+                        keyboardType: TextInputType.name,
                         controller: _nameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -162,6 +165,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       CustomTextField(
                         label: 'Email',
+                        keyboardType: TextInputType.emailAddress,
                         controller: _emailController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -178,6 +182,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       CustomTextField(
                         label: 'Password',
+                        keyboardType: TextInputType.text,
                         controller: _passwordController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -194,6 +199,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                       CustomTextField(
                         label: 'City',
+                        keyboardType: TextInputType.text,
                         controller: _cityController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -210,6 +216,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: _phoneNumberController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
+                            fillColor: Colors.green.shade50,
+                            filled: true,
                             labelText: 'Phone Verification',
                             prefixText: indiaPin,
                             border: OutlineInputBorder(

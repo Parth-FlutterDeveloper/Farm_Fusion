@@ -40,19 +40,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
        body: Column(
          children:  [
 
-           SizedBox(height: 70),
+           SizedBox(height: 90),
            ProfileImageWidget(),
-           SizedBox(height: 40),
+           SizedBox(height: 80),
 
            ProfileOptionWidget(
-             text: "Favourite",
+             text: "Search Farms",
              color: Colors.green.shade100,
-             icon: Icon(Icons.favorite,size: 22),
+             icon: Icon(Icons.search,size: 22),
              onTap: () {
                print("sddddddddddddd");
              },
            ),
            SizedBox(height: 30),
+
            ProfileOptionWidget(
              text: "Booked Farm",
              color: Colors.green.shade100,
@@ -62,15 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
              },
            ),
            SizedBox(height: 30),
-           ProfileOptionWidget(
-             text: "Setting",
-             color: Colors.green.shade100,
-             icon: Icon(Icons.settings,size: 24,),
-             onTap: () {
-               print("sddddddddddddd");
-             },
-           ),
-           SizedBox(height: 30),
+
            ProfileOptionWidget(
              text: "Logout",
              color: Colors.red.shade100,
@@ -90,6 +83,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                );
              },
            ),
+
+           // SizedBox(height: 20),
+           // Container(
+           //   margin: EdgeInsets.only(top: 10, left: 40, right: 40, bottom: 25),
+           //   height: Get.height / 7,
+           //   decoration: BoxDecoration(
+           //     color: Colors.green.shade50,
+           //     borderRadius: BorderRadius.circular(11),
+           //   ),
+           //   child: Center(child: Text('',style: TextStyle(
+           //       fontSize: 18,
+           //       fontWeight: FontWeight.bold,
+           //       color: Colors.green.shade900,
+           //       fontFamily: "LocalFont",
+           //       letterSpacing: 1
+           //   ))),
+           // ),
          ],
        ),
     );
