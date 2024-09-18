@@ -143,7 +143,7 @@ class _UpdateFarmScreenState extends State<UpdateFarmScreen> {
       setState(() {
         loading = false;
       });
-      Get.offNamed(RoutesName.adminNavbarWidget);
+      Get.offAllNamed(RoutesName.adminNavbarWidget);
     }else{
       Utils().redToastMessage("Please enter all details !!");
       setState(() {
@@ -163,7 +163,7 @@ class _UpdateFarmScreenState extends State<UpdateFarmScreen> {
       String id = widget.farmData['Id'];
       await dbMethod.deleteFarm(id);
       Utils().toastMessage("Farm Deleted Successfully");
-      Get.offNamed(RoutesName.adminNavbarWidget);
+      Get.offAllNamed(RoutesName.adminNavbarWidget);
     } catch (e) {
       Utils().redToastMessage("Error deleting farm: $e");
     } finally {
@@ -207,7 +207,7 @@ class _UpdateFarmScreenState extends State<UpdateFarmScreen> {
                           ),
                           SizedBox(width: 38,),
                           Text('Update Farm', style: TextStyle(
-                              fontSize: 30,
+                              fontSize: 26,
                               fontWeight: FontWeight.bold,
                               color: Colors.green.shade700,
                               fontFamily: "LocalFont",

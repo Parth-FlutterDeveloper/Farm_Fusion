@@ -128,7 +128,7 @@ class _AddFarmScreenState extends State<AddFarmScreen> {
                           ),
                           SizedBox(width: 58,),
                           Text('Add Farm', style: TextStyle(
-                              fontSize: 30,
+                              fontSize: 26,
                               fontWeight: FontWeight.bold,
                               color: Colors.green.shade700,
                               fontFamily: "LocalFont",

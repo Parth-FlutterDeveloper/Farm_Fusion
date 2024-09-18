@@ -30,7 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         centerTitle: true,
         backgroundColor: Colors.green.shade300,
         title: Text("Profile",style: TextStyle(
-            fontSize: 30,
+            fontSize: 26,
             fontWeight: FontWeight.bold,
             fontFamily: "LocalFont",
             color: Colors.black,
@@ -40,26 +40,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
        body: Column(
          children:  [
 
-           SizedBox(height: 90),
+           SizedBox(height: 130),
            ProfileImageWidget(),
            SizedBox(height: 80),
 
-           ProfileOptionWidget(
-             text: "Search Farms",
-             color: Colors.green.shade100,
-             icon: Icon(Icons.search,size: 22),
-             onTap: () {
-               print("sddddddddddddd");
-             },
-           ),
-           SizedBox(height: 30),
+           // ProfileOptionWidget(
+           //   text: "Search Farms",
+           //   color: Colors.green.shade100,
+           //   icon: Icon(Icons.search,size: 22),
+           //   onTap: () {},
+           // ),
+           // SizedBox(height: 30),
 
            ProfileOptionWidget(
              text: "Booked Farm",
              color: Colors.green.shade100,
              icon: Icon(Icons.book,size: 22),
              onTap: () {
-               print("sddddddddddddd");
+               Get.toNamed(RoutesName.bookedFarmScreen);
              },
            ),
            SizedBox(height: 30),

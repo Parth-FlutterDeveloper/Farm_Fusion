@@ -25,7 +25,7 @@ class _ULProfileScreenState extends State<ULProfileScreen> {
         centerTitle: true,
         backgroundColor: Colors.green.shade300,
         title: Text("Profile",style: TextStyle(
-            fontSize: 30,
+            fontSize: 26,
             fontWeight: FontWeight.bold,
             fontFamily: "LocalFont",
             color: Colors.black,

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:farm_booking_app/Common%20Widget/button_widget.dart';
 import 'package:farm_booking_app/Routes/routes_name.dart';
+import 'package:farm_booking_app/Utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,9 +36,12 @@ class _FarmDetailsScreenState extends State<FarmDetailsScreen> {
         arguments: {
           'id': id,
           'price': price,
+          'imageUrl': imageUrl,
+          'farmName': farmName
         },
       );
     }else{
+      Utils().toastMessage("Please Login First !!");
       Get.toNamed(RoutesName.loginScreen);
     }
 
@@ -71,7 +75,7 @@ class _FarmDetailsScreenState extends State<FarmDetailsScreen> {
         centerTitle: true,
         backgroundColor: Colors.green.shade300,
         title: Text("Farm",style: TextStyle(
-            fontSize: 30,
+            fontSize: 26,
             fontWeight: FontWeight.bold,
             fontFamily: "LocalFont",
             color: Colors.black,
@@ -140,7 +144,7 @@ class _FarmDetailsScreenState extends State<FarmDetailsScreen> {
               ListTile(
                 leading: Icon(Icons.location_city),
                 title: Text('$city',style: TextStyle(
-                    fontSize: 23,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.green.shade900,
                     fontFamily: "LocalFont",
@@ -150,7 +154,7 @@ class _FarmDetailsScreenState extends State<FarmDetailsScreen> {
               ListTile(
                 leading: Icon(Icons.location_on),
                 title: Text('$location',style: TextStyle(
-                    fontSize: 23,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.green.shade900,
                     fontFamily: "LocalFont",

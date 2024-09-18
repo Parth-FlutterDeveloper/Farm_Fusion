@@ -47,6 +47,7 @@ dependencies:
   phonepe_payment_sdk: ^2.0.3
   flutter_stripe: ^11.0.0
   http: ^1.2.0
+  firebase_storage: ^11.6.9
 
 
 dev_dependencies:

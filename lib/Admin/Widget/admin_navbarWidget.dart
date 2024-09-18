@@ -1,3 +1,4 @@
+import 'package:farm_booking_app/Admin/Screens/adminShowBookedFarm.dart';
 import 'package:farm_booking_app/Admin/Screens/admin_homeScreen.dart';
 import 'package:farm_booking_app/Admin/Screens/admin_profileScreen.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class _AdminNavbarWidgetState extends State<AdminNavbarWidget> {
 
   List<Widget> screens = [
     AdminHomeScreen(),
+    AdminShowBookedFarm(),
     AdminProfileScreen()
   ];
 
@@ -29,12 +31,12 @@ class _AdminNavbarWidgetState extends State<AdminNavbarWidget> {
         selectedItemColor: Colors.green,
         selectedLabelStyle: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 17,
+            fontSize: 15,
             fontFamily: "LocalFont"
         ),
         unselectedLabelStyle: TextStyle(
             fontFamily: "LocalFont",
-            fontSize: 14,
+            fontSize: 12,
             fontWeight: FontWeight.bold
         ),
         currentIndex: selectedIndex,
@@ -45,6 +47,7 @@ class _AdminNavbarWidgetState extends State<AdminNavbarWidget> {
         },
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home",),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: "Booked",),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),

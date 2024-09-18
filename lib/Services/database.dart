@@ -30,4 +30,18 @@ class DatabaseMethod {
         .delete();
   }
 
+  Future<void> addBookingDetails(Map<String, dynamic> bookingInfoMap, String id) async {
+    return await FirebaseFirestore.instance
+        .collection("booking")
+        .doc(id)
+        .set(bookingInfoMap);
+  }
+
+  Future<void> deleteBookedFarm(String id) async {
+    return await FirebaseFirestore.instance
+        .collection("booking")
+        .doc(id)
+        .delete();
+  }
+
 }

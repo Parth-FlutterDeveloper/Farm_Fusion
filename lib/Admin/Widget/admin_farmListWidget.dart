@@ -45,7 +45,7 @@ class _AdminFarmListWidgetState extends State<AdminFarmListWidget> {
             decoration: InputDecoration(
               hintText: "Search Farms...",
               hintStyle: TextStyle(
-                  fontSize: 19,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   fontFamily: "LocalFont",
                   color: Colors.black54,
@@ -155,7 +155,7 @@ class _AdminFarmListWidgetState extends State<AdminFarmListWidget> {
                             Padding(
                               padding: EdgeInsets.only(left: 20, bottom: 4),
                               child: Text('$farmName',style: TextStyle(
-                                  fontSize: 23,
+                                  fontSize: 22,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.yellow.shade900,
                                   fontFamily: "LocalFont",
@@ -165,7 +165,7 @@ class _AdminFarmListWidgetState extends State<AdminFarmListWidget> {
                             Padding(
                               padding: EdgeInsets.only(right: 20),
                               child: Text('₹ $price',style: TextStyle(
-                                  fontSize: 23,
+                                  fontSize: 21,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.yellow.shade900,
                                   fontFamily: "LocalFont",

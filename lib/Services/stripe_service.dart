@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:farm_booking_app/Utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
@@ -42,18 +43,20 @@ class StripeService {
   }
 
   static Future<void> initPaymentSheet(String amount, String currency) async {
-    try{
+    try {
+      // Create a payment intent
       final paymentIntent = await createPaymentIntent(amount, currency);
+      // Initialize the payment sheet
       await Stripe.instance.initPaymentSheet(
-          paymentSheetParameters: SetupPaymentSheetParameters(
-            paymentIntentClientSecret: paymentIntent['client_secret'],
-            merchantDisplayName: "Dummy",
-            style: ThemeMode.system
-          )
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          paymentIntentClientSecret: paymentIntent['client_secret'],
+          merchantDisplayName: "Dummy",
+          style: ThemeMode.system,
+        ),
       );
-    }
-    catch(e){
-      throw Exception("Failed to init Payment Sheet");
+    } catch (e) {
+      // Handle the exception
+      throw Exception("$e");
     }
   }
 
@@ -62,7 +65,7 @@ class StripeService {
       await Stripe.instance.presentPaymentSheet();
     }
     catch(e) {
-      throw Exception("Failed to present Payment Sheet");
+      Utils().redToastMessage("Cancel Payment");
     }
   }
 

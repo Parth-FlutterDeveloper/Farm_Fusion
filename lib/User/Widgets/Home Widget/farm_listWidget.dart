@@ -45,7 +45,7 @@ class _FarmListWidgetState extends State<FarmListWidget> {
               decoration: InputDecoration(
                 hintText: "Search Farms...",
                 hintStyle: TextStyle(
-                    fontSize: 19,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     fontFamily: "LocalFont",
                     color: Colors.black54,
@@ -65,7 +65,7 @@ class _FarmListWidgetState extends State<FarmListWidget> {
             ),
           ),
 
-          SizedBox(height: 35),
+          SizedBox(height: 30),
           StreamBuilder<QuerySnapshot>(
               stream: _firestore.collection('farms').snapshots(),
               builder: (context, snapshot) {
@@ -110,7 +110,7 @@ class _FarmListWidgetState extends State<FarmListWidget> {
                     var price = farmData['Price'];
 
                     return Container(
-                      margin: EdgeInsets.only(left: 20, right: 20, bottom: 35),
+                      margin: EdgeInsets.only(left: 20, right: 20, bottom: 30),
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
@@ -156,7 +156,7 @@ class _FarmListWidgetState extends State<FarmListWidget> {
                                 Padding(
                                   padding: EdgeInsets.only(left: 20, bottom: 4),
                                   child: Text('$farmName',style: TextStyle(
-                                      fontSize: 23,
+                                      fontSize: 22,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.yellow.shade900,
                                       fontFamily: "LocalFont",
@@ -166,7 +166,7 @@ class _FarmListWidgetState extends State<FarmListWidget> {
                                 Padding(
                                   padding: EdgeInsets.only(right: 20),
                                   child: Text('₹ $price',style: TextStyle(
-                                      fontSize: 23,
+                                      fontSize: 21,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.yellow.shade900,
                                       fontFamily: "LocalFont",

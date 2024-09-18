@@ -3,6 +3,7 @@ import 'package:farm_booking_app/Admin/Screens/admin_homeScreen.dart';
 import 'package:farm_booking_app/Admin/Screens/admin_profileScreen.dart';
 import 'package:farm_booking_app/Admin/Screens/update_farmScreen.dart';
 import 'package:farm_booking_app/Routes/routes_name.dart';
+import 'package:farm_booking_app/User/Screens/Nav%20Screens/booked_screen.dart';
 import 'package:farm_booking_app/User/Screens/booking_screen.dart';
 import 'package:farm_booking_app/User/Screens/farm_detailsScreen.dart';
 import 'package:farm_booking_app/User/Screens/phonePe_payment.dart';
@@ -115,11 +116,18 @@ class AppRoutes{
     GetPage(
         name: RoutesName.bookingScreen,
         page: () {
-          final Map<String, dynamic> farmIdPrice = Get.arguments;
-          return BookingScreen(farmIdPrice: farmIdPrice);
+          final Map<String, dynamic> farmDetails = Get.arguments;
+          return BookingScreen(farmDetails: farmDetails);
         },
         transitionDuration: Duration(milliseconds: 250),
         transition: Transition.rightToLeftWithFade
+    ),
+
+    GetPage(
+      name: RoutesName.bookedFarmScreen,
+      page: () => BookedScreen(),
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.rightToLeftWithFade,
     ),
 
     GetPage(

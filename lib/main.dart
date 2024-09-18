@@ -1,4 +1,5 @@
 import 'package:farm_booking_app/Routes/routes.dart';
+import 'package:farm_booking_app/Services/stripe_service.dart';
 import 'package:farm_booking_app/Utils/utils.dart';
 import 'package:farm_booking_app/firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  StripeService.init();
 
   runApp(const FarmFusion());
 }

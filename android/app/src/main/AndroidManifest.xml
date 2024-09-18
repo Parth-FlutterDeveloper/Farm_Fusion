@@ -39,5 +39,11 @@
         <meta-data android:name="com.phonepe.android.sdk.MerchantId" android:value="PGTESTPAYUAT"/>
         <meta-data android:name="com.phonepe.android.sdk.AppId" android:value="appId"/>
 
+        <!--For Stripe Payment-->
+        <meta-data
+            android:name="com.google.android.gms.wallet.api.enabled"
+            android:value="true"/>
+
+
     </application>
 </manifest>

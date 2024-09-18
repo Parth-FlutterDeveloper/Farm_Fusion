@@ -24,6 +24,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: Colors.green.shade300,
         title: Text("Profile",style: TextStyle(
@@ -40,7 +41,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            SizedBox(height: 50),
+            SizedBox(height: 10),
 
             AdminProfileImageWidget(),
 

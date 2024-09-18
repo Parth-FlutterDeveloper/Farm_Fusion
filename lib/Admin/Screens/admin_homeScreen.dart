@@ -40,7 +40,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
             Center(
               child: Text("Welcome $name",style: TextStyle(
-                  fontSize: 30,
+                  fontSize: 26,
                   fontWeight: FontWeight.bold,
                   fontFamily: "LocalFont",
                   color: Colors.green,

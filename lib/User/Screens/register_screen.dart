@@ -237,23 +237,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       SizedBox(height: 10),
 
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16),
-                        child: Align(
-                          alignment: Alignment.centerRight,
-                          child: ButtonWidget(
-                              text: "Verify",
-                              width: 4,
-                              onTap: () {
-                                verifyPhone();
-                              },
-                            loading: verifyLoading,
-                            txtColor: Colors.white,
-                            backColor: Colors.green.shade400,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(right: 16),
+                      //   child: Align(
+                      //     alignment: Alignment.centerRight,
+                      //     child: ButtonWidget(
+                      //         text: "Verify",
+                      //         width: 4,
+                      //         onTap: () {
+                      //           verifyPhone();
+                      //         },
+                      //       loading: verifyLoading,
+                      //       txtColor: Colors.white,
+                      //       backColor: Colors.green.shade400,
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(height: 10),
 
 
                       CheckboxListTile(

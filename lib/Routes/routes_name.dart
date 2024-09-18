@@ -17,6 +17,8 @@ class RoutesName{
 
   static const String bookingScreen = '/booking_screen';
 
+  static const String bookedFarmScreen = '/booked_screen';
+
   static const String phonePePayment = '/phonePe_payment';
 
   // --------------------- Admin Routes --------------------------

@@ -23,6 +23,16 @@ class SharedPreferenceHelper {
     return preference.setString(userIdKey, getUserId);
   }
 
+  Future<void> saveUserProfileImage(String url) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userProfileImage', url);
+  }
+
+  Future<void> saveAdminProfileImage(String url) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('adminProfileImage', url);
+  }
+
   // For Getting data from shared preferences
 
   Future<String?> getUserName() async {
@@ -40,5 +50,14 @@ class SharedPreferenceHelper {
     return preferences.getString(userIdKey);
   }
 
+  Future<String?> getUserProfileImage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('userProfileImage');
+  }
+
+  Future<String?> getAdminProfileImage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('adminProfileImage');
+  }
 
 }

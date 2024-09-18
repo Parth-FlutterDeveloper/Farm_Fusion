@@ -1,15 +1,17 @@
 import 'package:farm_booking_app/Common%20Widget/button_widget.dart';
+import 'package:farm_booking_app/Services/database.dart';
 import 'package:farm_booking_app/Services/stripe_service.dart';
 import 'package:farm_booking_app/Utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../Routes/routes_name.dart';
 import '../../Services/shared_preference.dart';
 
 class BookingScreen extends StatefulWidget {
-  final Map<String, dynamic> farmIdPrice;
+  final Map<String, dynamic> farmDetails;
   const BookingScreen({
     super.key,
-    required this.farmIdPrice
+    required this.farmDetails
   });
 
   @override
@@ -26,13 +28,12 @@ class _BookingScreenState extends State<BookingScreen> {
   String? _selectedTime;
   final _formKey = GlobalKey<FormState>();
 
-  late String farmId,farmPrice;
+  late String farmId,farmPrice,farmImageUrl,farmName;
 
   String? userId, userEmail;
   SharedPreferenceHelper spHelper = SharedPreferenceHelper();
 
-  // String amount = (double.parse('50') * 100).toStringAsFixed(0);
-  String amount = '5000';
+  late String amount;
   String currency = 'USD';
 
 
@@ -51,18 +52,74 @@ class _BookingScreenState extends State<BookingScreen> {
     return numOfDays * pricePerDay;
   }
 
+
+  // Add booking details in database
+  DatabaseMethod dbMethod = DatabaseMethod();
+  Future<void> addBookingDetails() async {
+    setState(() {
+      loading = true;
+    });
+    if (_formKey.currentState!.validate()) {
+      if (_selectedTime == null || _selectedDate == null) {
+        Utils().redToastMessage("Please enter Date & Time");
+        setState(() {
+          loading = false;
+        });
+      } else {
+        try{
+          int totalPrice = calculateTotalPrice();
+          amount = (totalPrice * 100).toString();
+          await StripeService.initPaymentSheet(amount, currency);
+          await StripeService.presentPaymentSheet();
+
+          String id = DateTime.now().millisecondsSinceEpoch.toString();
+          Map<String, dynamic> bookingInfoMap = {
+            "Id": id,
+            "Name": nameController.text,
+            "Email": userEmail,
+            "Date": _selectedDate,
+            "Time": _selectedTime,
+            "NumOfDays": numOfDayController.text,
+            "TotalPrice": calculateTotalPrice(),
+            "UserId": userId,
+            "FarmId": farmId,
+            "FarmImageUrl": farmImageUrl,
+            "FarmName": farmName
+          };
+          await dbMethod.addBookingDetails(bookingInfoMap, id);
+          Get.offAllNamed(RoutesName.navbarWidget);
+          Utils().toastMessage("Payment Completed");
+          setState(() {
+            loading = false;
+          });
+        }catch(error){
+          Utils().redToastMessage("Error is : $error");
+          setState(() {
+            loading = false;
+          });
+        }
+      }
+    }
+    setState(() {
+      loading = false;
+    });
+  }
+
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    farmId = widget.farmIdPrice['id'];
-    farmPrice = widget.farmIdPrice['price'];
+    farmId = widget.farmDetails['id'];
+    farmPrice = widget.farmDetails['price'];
+    farmImageUrl = widget.farmDetails['imageUrl'];
+    farmName = widget.farmDetails['farmName'];
     getDataFromSPHelper();
     // Detect number all time changed by the user in field
     numOfDayController.addListener(() {
       setState(() {});
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +128,7 @@ class _BookingScreenState extends State<BookingScreen> {
         centerTitle: true,
         backgroundColor: Colors.green.shade300,
         title: Text("Booking",style: TextStyle(
-            fontSize: 30,
+            fontSize: 26,
             fontWeight: FontWeight.bold,
             fontFamily: "LocalFont",
             color: Colors.black,
@@ -276,32 +333,8 @@ class _BookingScreenState extends State<BookingScreen> {
                   child: ButtonWidget(
                       text: "Pay now",
                       width: 1.2,
-                      onTap: () async {
-                        setState(() {
-                          loading = true;
-                        });
-                        if (_formKey.currentState!.validate()) {
-                          if (_selectedTime == null || _selectedDate == null) {
-                            Utils().redToastMessage("Please enter Date & Time");
-                            setState(() {
-                              loading = false;
-                            });
-                          } else {
-                            // Get.toNamed(RoutesName.phonePePayment);
-                            try{
-                              await StripeService.initPaymentSheet(amount, currency);
-                              await StripeService.presentPaymentSheet();
-                              setState(() {
-                                loading = false;
-                              });
-                            }catch(error){
-                              Utils().redToastMessage("Error is : $error");
-                              setState(() {
-                                loading = false;
-                              });
-                            }
-                          }
-                        }
+                      onTap: () {
+                        addBookingDetails();
                       },
                       loading: loading,
                       backColor: Colors.green,

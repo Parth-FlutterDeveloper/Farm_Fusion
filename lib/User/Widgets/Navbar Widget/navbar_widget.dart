@@ -32,12 +32,12 @@ class _NavbarWidgetState extends State<NavbarWidget> {
         selectedItemColor: Colors.green,
         selectedLabelStyle: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 17,
+          fontSize: 15,
           fontFamily: "LocalFont"
         ),
         unselectedLabelStyle: TextStyle(
             fontFamily: "LocalFont",
-            fontSize: 14,
+            fontSize: 12,
             fontWeight: FontWeight.bold
         ),
         currentIndex: selectedIndex,
