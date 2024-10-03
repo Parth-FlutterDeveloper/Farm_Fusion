@@ -28,7 +28,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
         centerTitle: true,
         backgroundColor: Colors.green.shade300,
         title: Text("Profile",style: TextStyle(
-            fontSize: 30,
+            fontSize: 26,
             fontWeight: FontWeight.bold,
             fontFamily: "LocalFont",
             color: Colors.black,
@@ -45,7 +45,7 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
 
             AdminProfileImageWidget(),
 
-            SizedBox(height: 80),
+            SizedBox(height: 100),
 
             ProfileOptionWidget(
               text: "Add Farms",
@@ -53,6 +53,16 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
               icon: Icon(Icons.add_box,size: 22),
               onTap: () {
                 Get.toNamed(RoutesName.addFarmScreen);
+              },
+            ),
+            SizedBox(height: 30),
+
+            ProfileOptionWidget(
+              text: "History",
+              color: Colors.green.shade100,
+              icon: Icon(Icons.list,size: 22),
+              onTap: () {
+                Get.toNamed(RoutesName.bookedFarmHistory);
               },
             ),
             SizedBox(height: 30),
@@ -77,16 +87,6 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                 );
               },
             ),
-            SizedBox(height: 30),
-
-            Text("     You are a Admin here So,\n"
-                "You have authority to managed \n"
-                "     Farms in the application",style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              fontFamily: "LocalFont",
-              letterSpacing: 1,
-            ),),
           ],
         ),
       ),

@@ -145,7 +145,7 @@ class _FarmListWidgetState extends State<FarmListWidget> {
                                   color: Colors.grey,
                                   borderRadius: BorderRadius.circular(11),
                                   image: imageUrl.isNotEmpty ? DecorationImage(
-                                    image: FileImage(File(imageUrl)),
+                                    image: NetworkImage(imageUrl),
                                     fit: BoxFit.cover,
                                   ) : null,
                                 )

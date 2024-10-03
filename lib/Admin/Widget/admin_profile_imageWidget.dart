@@ -95,7 +95,7 @@ class _AdminProfileImageWidgetState extends State<AdminProfileImageWidget> {
             ),
           ),
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 30),
         Text(
           name == null ? "Name" : "$name",
           style: TextStyle(

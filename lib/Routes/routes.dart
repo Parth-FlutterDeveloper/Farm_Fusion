@@ -1,6 +1,7 @@
 import 'package:farm_booking_app/Admin/Screens/add_farmScreen.dart';
 import 'package:farm_booking_app/Admin/Screens/admin_homeScreen.dart';
 import 'package:farm_booking_app/Admin/Screens/admin_profileScreen.dart';
+import 'package:farm_booking_app/Admin/Screens/bookedFarmHistory.dart';
 import 'package:farm_booking_app/Admin/Screens/update_farmScreen.dart';
 import 'package:farm_booking_app/Routes/routes_name.dart';
 import 'package:farm_booking_app/User/Screens/Nav%20Screens/booked_screen.dart';
@@ -133,6 +134,13 @@ class AppRoutes{
     GetPage(
       name: RoutesName.phonePePayment,
       page: () => PhonePePayment(),
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.rightToLeftWithFade,
+    ),
+
+    GetPage(
+      name: RoutesName.bookedFarmHistory,
+      page: () => BookedFarmHistory(),
       transitionDuration: Duration(milliseconds: 250),
       transition: Transition.rightToLeftWithFade,
     ),

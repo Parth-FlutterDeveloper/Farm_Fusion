@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../Routes/routes_name.dart';
 import '../../Services/database.dart';
 import '../../Utils/utils.dart';
 
@@ -98,7 +99,13 @@ class _AdminShowBookedFarmState extends State<AdminShowBookedFarm> {
                       final data = snapshot.requireData.docs.where((doc) {
                         final bookingData = doc.data() as Map<String, dynamic>;
                         final farmName = bookingData['FarmName']?.toString().toLowerCase() ?? '';
-                        return farmName.contains(searchQuery);
+                        final farmBookedDate = DateTime.parse(bookingData['Date']);
+                        final currantDate = DateTime(
+                            DateTime.now().year,
+                            DateTime.now().month,
+                            DateTime.now().day
+                        );
+                        return farmName.contains(searchQuery) && (farmBookedDate.isAtSameMomentAs(currantDate) || farmBookedDate.isAfter(currantDate));
                       }).toList();
 
                       if (data.isEmpty) {
@@ -160,7 +167,7 @@ class _AdminShowBookedFarmState extends State<AdminShowBookedFarm> {
                                       color: Colors.grey,
                                       borderRadius: BorderRadius.circular(11),
                                       image: imageUrl.isNotEmpty ? DecorationImage(
-                                        image: FileImage(File(imageUrl)),
+                                        image: NetworkImage(imageUrl),
                                         fit: BoxFit.cover,
                                       ) : null,
                                     )
@@ -229,7 +236,16 @@ class _AdminShowBookedFarmState extends State<AdminShowBookedFarm> {
                 )
               ]
           ),
-        )
+        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Get.toNamed(RoutesName.bookedFarmHistory);
+        },
+        backgroundColor: Colors.green.shade50,
+        child: Center(
+          child: Icon(Icons.list, color: Colors.black, size: 28,)
+        ),
+      ),
     );
   }
 }

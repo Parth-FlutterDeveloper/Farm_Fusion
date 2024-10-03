@@ -21,6 +21,8 @@ class RoutesName{
 
   static const String phonePePayment = '/phonePe_payment';
 
+  static const String bookedFarmHistory = '/bookedFarmHistory';
+
   // --------------------- Admin Routes --------------------------
 
   static const String adminHomeScreen = '/admin_homeScreen';

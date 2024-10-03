@@ -103,7 +103,7 @@ class _FarmDetailsScreenState extends State<FarmDetailsScreen> {
                     color: Colors.grey,
                     borderRadius: BorderRadius.circular(5),
                     image: imageUrl.isNotEmpty ? DecorationImage(
-                      image: FileImage(File(imageUrl)),
+                      image: NetworkImage(imageUrl),
                       fit: BoxFit.cover,
                     ) : null,
                   )

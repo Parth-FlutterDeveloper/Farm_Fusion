@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:farm_booking_app/Common%20Widget/button_widget.dart';
 import 'package:farm_booking_app/Utils/utils.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -46,16 +47,37 @@ class _AddFarmScreenState extends State<AddFarmScreen> {
 
 
   // To Add Image and Image Url into the Collection
-  XFile? _pickedImage;
+
+  String? profileImageUrl;
+  File? _imageFile;
   final ImagePicker _picker = ImagePicker();
-  String? _imageUrl;
-  Future<void> _pickImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      _imageUrl = image.path;
+
+  // Pick an image from the gallery
+  Future<void> pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
       setState(() {
-        _pickedImage = image;
+        _imageFile = File(pickedFile.path);
       });
+      uploadImageToFirebase();
+    }
+  }
+
+  // Upload the selected image to Firebase and save URL
+  Future<void> uploadImageToFirebase() async {
+    if (_imageFile == null) return;
+    try {
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child('farmImages/${DateTime.now().millisecondsSinceEpoch}.png');
+      // Upload file
+      final uploadTask = storageRef.putFile(_imageFile!);
+      // download URL
+      final snapshot = await uploadTask;
+      profileImageUrl = await snapshot.ref.getDownloadURL();
+      setState(() {});
+    } catch (e) {
+      print("Error uploading image: $e");
     }
   }
   //---------------------------
@@ -71,7 +93,7 @@ class _AddFarmScreenState extends State<AddFarmScreen> {
       String id = DateTime.now().millisecondsSinceEpoch.toString();
       Map<String, dynamic> farmInfoMap = {
         "Id": id,
-        "ImageUrl": _imageUrl,
+        "ImageUrl": profileImageUrl,
         "FarmName": farmNameController.text,
         "Description": farmDescriptionController.text,
         "Price": farmPriceController.text,
@@ -164,7 +186,7 @@ class _AddFarmScreenState extends State<AddFarmScreen> {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          await _pickImage();
+                          await pickImage();
                         },
                         child: Container(
                           width: Get.width / 1.2,
@@ -172,14 +194,14 @@ class _AddFarmScreenState extends State<AddFarmScreen> {
                           decoration: BoxDecoration(
                             color: Colors.grey,
                             borderRadius: BorderRadius.circular(11),
-                            image: _pickedImage != null
+                            image: profileImageUrl != null
                                 ? DecorationImage(
-                              image: FileImage(File(_pickedImage!.path)),
+                              image: NetworkImage(profileImageUrl!),
                               fit: BoxFit.cover,
                             )
                                 : null,
                           ),
-                          child: _pickedImage == null
+                          child: profileImageUrl == null
                               ? Icon(
                             Icons.add_a_photo,
                             color: Colors.white,

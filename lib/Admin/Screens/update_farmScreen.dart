@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:farm_booking_app/Admin/Widget/delete_farmDialog.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -34,6 +35,7 @@ class _UpdateFarmScreenState extends State<UpdateFarmScreen> {
   DeleteFarmDialog deleteFarmDialog = DeleteFarmDialog();
 
 
+  late String imageURL;
   late TextEditingController farmNameController;
   late TextEditingController farmDescriptionController;
   late TextEditingController farmPriceController;
@@ -57,15 +59,17 @@ class _UpdateFarmScreenState extends State<UpdateFarmScreen> {
 
 
   // To Add Image and Image Url
-  XFile? _pickedImage;
+  String? profileImageUrl;
+  File? _imageFile;
   final ImagePicker _picker = ImagePicker();
-  String? _imageUrl;
 
   @override
   void initState() {
     super.initState();
 
     // Initializing TextEditingControllers in initState
+
+    imageURL = widget.farmData['ImageUrl'];
     farmNameController = TextEditingController(text: widget.farmData['FarmName']);
     farmDescriptionController = TextEditingController(text: widget.farmData['Description']);
     farmPriceController = TextEditingController(text: widget.farmData['Price']);
@@ -83,17 +87,35 @@ class _UpdateFarmScreenState extends State<UpdateFarmScreen> {
     selectedBedText = bedOptions[_selectedBed]!;
   }
 
-  Future<void> _pickImage() async {
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      _imageUrl = image.path;
+  Future<void> pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
       setState(() {
-        _pickedImage = image;
+        _imageFile = File(pickedFile.path);
       });
+      uploadImageToFirebase();
     }
   }
   //---------------------------
 
+  // Upload the selected image to Firebase and save URL
+  Future<void> uploadImageToFirebase() async {
+    if (_imageFile == null) return;
+    try {
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child('farmImages/${DateTime.now().millisecondsSinceEpoch}.png');
+      // Upload file
+      final uploadTask = storageRef.putFile(_imageFile!);
+      // download URL
+      final snapshot = await uploadTask;
+      profileImageUrl = await snapshot.ref.getDownloadURL();
+      setState(() {});
+    } catch (e) {
+      print("Error uploading image: $e");
+    }
+  }
+  //---------------------------
 
   // Update Farm Details into Firebase Firestore
   Future<void> _updateFarm() async {
@@ -105,7 +127,7 @@ class _UpdateFarmScreenState extends State<UpdateFarmScreen> {
       Map<String, dynamic> farmInfoMap = {
 
       "Id": id,
-      "ImageUrl": _imageUrl ?? widget.farmData['ImageUrl'],
+      "ImageUrl": profileImageUrl ?? widget.farmData['ImageUrl'],
 
       "FarmName": farmNameController.text.isEmpty
             ? widget.farmData['FarmName']
@@ -242,27 +264,23 @@ class _UpdateFarmScreenState extends State<UpdateFarmScreen> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: _pickImage,
+                        onTap: pickImage,
                         child: Container(
                           width: Get.width / 1.2,
                           height: Get.height / 3.8,
                           decoration: BoxDecoration(
                             color: Colors.grey,
                             borderRadius: BorderRadius.circular(11),
-                            image: _pickedImage != null
+                            image: profileImageUrl != null
                                 ? DecorationImage(
-                              image: FileImage(File(_pickedImage!.path)),
-                              fit: BoxFit.cover,
+                                  image: NetworkImage(profileImageUrl!),
+                                  fit: BoxFit.cover,
                             )
-                                : null,
+                                : DecorationImage(
+                                  image: NetworkImage(imageURL),
+                                  fit: BoxFit.cover
+                            ),
                           ),
-                          child: _pickedImage == null
-                              ? Icon(
-                            Icons.add_a_photo,
-                            color: Colors.white,
-                            size: 50,
-                          )
-                              : null,
                         ),
                       ),
 

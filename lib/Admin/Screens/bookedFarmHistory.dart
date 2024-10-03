@@ -1,85 +1,32 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../Services/database.dart';
-import '../../../Services/shared_preference.dart';
-import '../../../Utils/utils.dart';
+import '../../Services/database.dart';
+import '../../Utils/utils.dart';
 
-class BookedScreen extends StatefulWidget {
-  const BookedScreen({super.key});
+class BookedFarmHistory extends StatefulWidget {
+  const BookedFarmHistory({super.key});
 
   @override
-  State<BookedScreen> createState() => _BookedScreenState();
+  State<BookedFarmHistory> createState() => _BookedFarmHistoryState();
 }
 
-class _BookedScreenState extends State<BookedScreen> {
+class _BookedFarmHistoryState extends State<BookedFarmHistory> {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final TextEditingController _searchController = TextEditingController();
   String searchQuery = "";
-  String? userId;
-  SharedPreferenceHelper spHelper = SharedPreferenceHelper();
   DatabaseMethod dbMethod = DatabaseMethod();
-  late var auth;
-  late var user;
-
-  getDataFromSPHelper() async {
-    userId = await spHelper.getUserId();
-    setState(() {
-      print("USER iiiiiiiiiiiiiiiiiiiiiiddddddddddddd : $userId");
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getDataFromSPHelper();
-    auth = FirebaseAuth.instance;
-    user = auth.currentUser;
-  }
 
   @override
   Widget build(BuildContext context) {
-
-    if(user == null){
-      return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.green.shade300,
-          title: Text(
-            "Booked Farm",
-            style: TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-              fontFamily: "LocalFont",
-              color: Colors.black,
-              letterSpacing: 1.5,
-            ),
-          ),
-        ),
-        body: Center(
-          child: Text(
-            "Please login first !!"
-                "\n  To Book a Farm",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              fontFamily: "LocalFont",
-              color: Colors.red.shade900,
-              letterSpacing: 1.5,
-            ),
-          ),
-        ),
-      );
-    }
-
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: Colors.green.shade300,
-        title: Text("Booked Farm",style: TextStyle(
+        title: Text("Farm History",style: TextStyle(
             fontSize: 26,
             fontWeight: FontWeight.bold,
             fontFamily: "LocalFont",
@@ -132,32 +79,26 @@ class _BookedScreenState extends State<BookedScreen> {
                   ),
                 ),
               ),
-        
+
               SizedBox(height: 30),
               StreamBuilder<QuerySnapshot>(
                   stream: _firestore.collection('booking').snapshots(),
                   builder: (context, snapshot) {
-        
+
                     if (snapshot.hasError) {
                       return Center(child: Text("Something went wrong"));
                     }
-        
+
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator(color: Colors.green));
                     }
-        
+
                     final data = snapshot.requireData.docs.where((doc) {
                       final bookingData = doc.data() as Map<String, dynamic>;
                       final farmName = bookingData['FarmName']?.toString().toLowerCase() ?? '';
-                      final farmBookedDate = DateTime.parse(bookingData['Date']);
-                      final currantDate = DateTime(
-                          DateTime.now().year,
-                          DateTime.now().month,
-                          DateTime.now().day
-                      );
-                      return farmName.contains(searchQuery) && bookingData['UserId'] == userId && (farmBookedDate.isAtSameMomentAs(currantDate) || farmBookedDate.isAfter(currantDate));
+                      return farmName.contains(searchQuery);
                     }).toList();
-        
+
                     if (data.isEmpty) {
                       return SizedBox(
                           height: 200,
@@ -166,17 +107,17 @@ class _BookedScreenState extends State<BookedScreen> {
                           )
                       );
                     }
-        
+
                     if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                       return Center(child: Text("No farms available"));
                     }
-        
+
                     return ListView.builder(
                       itemCount: data.length,
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-        
+
                         var bookingData = data[index].data() as Map<String, dynamic>?;
                         if (bookingData == null) {
                           return Center(child: Text("Error: Farm data unavailable")); // Handle null case
@@ -185,6 +126,12 @@ class _BookedScreenState extends State<BookedScreen> {
                         var imageUrl = bookingData['FarmImageUrl'];
                         var farmName = bookingData['FarmName'];
                         var date = bookingData['Date'];
+                        final farmBookedDate = DateTime.parse(bookingData['Date']);
+                        final currantDate = DateTime(
+                            DateTime.now().year,
+                            DateTime.now().month,
+                            DateTime.now().day
+                        );
                         var totalDays = bookingData['NumOfDays'];
                         var totalPrice = bookingData['TotalPrice'];
 
@@ -259,21 +206,23 @@ class _BookedScreenState extends State<BookedScreen> {
                                         color: Colors.green.shade900,
                                         fontFamily: "LocalFont",
                                         letterSpacing: 1
-                                    ),),
+                                    ),)
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(right: 20),
-                                    child: IconButton(
-                                      onPressed: () async {
-                                        try {
-                                          await dbMethod.deleteBookedFarm(id);
-                                          Utils().toastMessage("Cancel Booking");
-                                        } catch (e) {
-                                          Utils().redToastMessage("Error deleting farm: $e");
-                                        }
-                                      },
-                                      icon: Icon(Icons.delete,size: 25,color: Colors.black,),
-                                    )
+                                      padding: EdgeInsets.only(right: 20),
+                                      child: IconButton(
+                                        onPressed: () async {
+                                          try {
+                                            await dbMethod.deleteBookedFarm(id);
+                                            Utils().toastMessage("Cancel Booking");
+                                          } catch (e) {
+                                            Utils().redToastMessage("Error deleting farm: $e");
+                                          }
+                                        },
+                                        icon: (farmBookedDate.isAtSameMomentAs(currantDate) || farmBookedDate.isAfter(currantDate))
+                                        ? Icon(Icons.delete,size: 25,color: Colors.black,)
+                                        : Icon(Icons.delete,size: 25,color: Colors.red,),
+                                      )
                                   ),
                                 ],
                               ),
@@ -286,7 +235,7 @@ class _BookedScreenState extends State<BookedScreen> {
               )
             ]
         ),
-      )
+      ),
     );
   }
 }
